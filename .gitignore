@@ -1,0 +1,4 @@
+# Visual studio
+.vs/
+out/
+CMakeSettings.json
