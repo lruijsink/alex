@@ -6,12 +6,13 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class CharT>
-auto character(CharT c)
+template<class GrammarT>
+auto optional(GrammarT g)
 {
   return grammar([=] (auto& parser)
   {
-    return parser.stream().get() == c;
+    parser.parse(g);
+    return true;
   });
 }
 

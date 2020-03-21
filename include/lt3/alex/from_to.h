@@ -7,13 +7,14 @@ LT3_ALEX_NAMESPACE_BEGIN
 
 
 template<class CharT>
-auto character(CharT c)
+auto from_to(CharT from, CharT to)
 {
   return grammar([=] (auto& parser)
   {
-    return parser.stream().get() == c;
+    auto v = parser.stream().get();
+    return from <= v && v <= to;
   });
-}
+};
 
 
 LT3_ALEX_NAMESPACE_END

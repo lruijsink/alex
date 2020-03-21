@@ -7,9 +7,16 @@ using namespace lt3;
 
 int main()
 {
-  auto source = std::string_view("Hello world!");
-  auto parser = alex::parser(source);
+  auto letter = alex::from_to('a', 'z') || alex::from_to('A', 'Z');
+  auto digit  = alex::from_to('0', '9');
+  auto uscore = alex::character('_');
 
-  auto res1 = parser.parse(alex::character('h')); // false
-  auto res2 = parser.parse(alex::character('H')); // true
+  auto identifier = (letter || uscore)
+                  + alex::repeat(letter || uscore || digit);
+
+  auto good = std::string_view("a_proper_identifier");
+  auto bad  = std::string_view("1_bad_identifier");
+
+  std::cout << alex::parser(good).parse(identifier) << "\n"; // true
+  std::cout << alex::parser(bad) .parse(identifier) << "\n"; // false
 }

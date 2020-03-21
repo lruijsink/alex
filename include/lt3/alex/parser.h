@@ -19,6 +19,9 @@ public:
   {
   }
 
+  parser(const parser&) = delete;
+  parser(parser&&) = delete;
+
   template<class GrammarT>
   bool parse(GrammarT grammar)
   {
@@ -33,7 +36,7 @@ public:
     return matches;
   }
 
-  stream_type stream() const
+  stream_type& stream()
   {
     return stream_;
   }
