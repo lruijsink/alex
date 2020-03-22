@@ -5,9 +5,9 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-class basic_parser;
-class basic_grammar_adapter;
-class basic_stream_adapter;
+class parser_adapter;
+class grammar_adapter;
+class stream_adapter;
 
 struct adapter_traits
 {

@@ -2,8 +2,7 @@
 
 #include <memory>
 #include "defines.h"
-#include "adapter.h"
-//#include "grammar_adapter.h"
+#include "grammar_adapter.h"
 
 LT3_ALEX_NAMESPACE_BEGIN
 
@@ -16,10 +15,10 @@ public:
   {
   }
 
-  template<class GrammarT>
-  recursive(GrammarT g)
+  template<class T>
+  recursive(grammar<T> g)
   {
-    impl_ = std::make_shared<grammar_adapter_impl<GrammarT>>(g);
+    impl_ = std::make_shared<grammar_adapter_impl<grammar<T>>>(g);
   }
 
   template<class T>

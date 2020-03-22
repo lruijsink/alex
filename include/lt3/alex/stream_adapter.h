@@ -7,11 +7,9 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class AdapterTraitsT>
-class basic_stream_adapter
+class stream_adapter
 {
 public:
-  using adapter_traits = AdapterTraitsT;
   using char_type      = typename adapter_traits::char_type;
   using traits_type    = std::char_traits<char_type>;
   using int_type       = typename traits_type::int_type;
@@ -23,16 +21,15 @@ public:
   virtual void     reset() = 0;
 };
 
-template<class AdapterTraitsT, class StreamT>
-class basic_stream_adapter_impl : public basic_stream_adapter<AdapterTraitsT>
+template<class StreamT>
+class stream_adapter_impl : public stream_adapter
 {
 public:
-  using adapter_traits = AdapterTraitsT;
-  using char_type      = typename adapter_traits::char_type;
-  using traits_type    = std::char_traits<char_type>;
-  using int_type       = typename traits_type::int_type;
+  using char_type   = typename adapter_traits::char_type;
+  using traits_type = std::char_traits<char_type>;
+  using int_type    = typename traits_type::int_type;
 
-  basic_stream_adapter_impl(StreamT& stream)
+  stream_adapter_impl(StreamT& stream)
     : stream_(stream)
   {
   }
@@ -65,11 +62,6 @@ public:
 private:
   StreamT& stream_;
 };
-
-using stream_adapter = basic_stream_adapter<default_adapter_traits>;
-
-template<class StreamT>
-using stream_adapter_impl = basic_stream_adapter_impl<default_adapter_traits, StreamT>;
 
 
 LT3_ALEX_NAMESPACE_END

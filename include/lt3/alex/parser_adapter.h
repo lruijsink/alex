@@ -8,46 +8,41 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class AdapterTraitsT>
-class basic_parser_adapter
+class parser_adapter
 {
 public:
-  using adapter_traits = AdapterTraitsT;
+  virtual bool parse(const grammar_adapter&) = 0;
+  virtual stream_adapter& stream() = 0;
 
-  virtual bool parse(const basic_grammar_adapter<adapter_traits>&) = 0;
-  virtual basic_stream_adapter<adapter_traits>& stream() = 0;
-
-  template<class GrammarT>
-  bool parse(GrammarT g)
+  template<class T>
+  bool parse(grammar<T> g)
   {
-    return parse(basic_grammar_adapter_impl<adapter_traits, GrammarT>(g));
+    return parse(grammar_adapter_impl<grammar<T>>(g));
   }
 };
 
-template<class AdapterTraitsT, class ParserT>
-class basic_parser_adapter_impl : public basic_parser_adapter<AdapterTraitsT>
+template<class ParserT>
+class parser_adapter_impl : public parser_adapter
 {
 public:
-  using adapter_traits = AdapterTraitsT;
-
-  basic_parser_adapter_impl(ParserT& parser)
+  parser_adapter_impl(ParserT& parser)
     : parser_(parser)
   {
   }
 
-  bool parse(const basic_grammar_adapter<adapter_traits>& g) override
+  bool parse(grammar_adapter& g) override
   {
-    return parser_.parser(g);
+    return parser_.parse(g);
+  }
+
+  virtual stream_adapter& stream() override
+  {
+    return stream_adapter_impl(parser_.stream());
   }
 
 private:
   ParserT& parser_;
 };
-
-using parser_adapter = basic_parser_adapter<default_adapter_traits>;
-
-template<class ParserT>
-using parser_adapter_impl = basic_parser_adapter_impl<default_adapter_traits, ParserT>;
 
 
 LT3_ALEX_NAMESPACE_END
