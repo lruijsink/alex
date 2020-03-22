@@ -48,5 +48,27 @@ private:
   std::string s_;
 };
 
+template<>
+class grammar<const char*>
+{
+public:
+  grammar(const char* s)
+    : s_(s)
+  {
+  }
+
+  template<class ParserT>
+  bool match(ParserT& parser) const
+  {
+    for (auto c : s_)
+      if (parser.stream().get() != c)
+        return false;
+    return true;
+  }
+
+private:
+  std::string s_;
+};
+
 
 LT3_ALEX_NAMESPACE_END

@@ -20,6 +20,6 @@ TEST(stream_range_test, repeat)
   auto parser = lt3::alex::parser(source);
 
   EXPECT_TRUE(parser.parse(lt3::alex::repeat('1')));
-  EXPECT_TRUE(parser.parse('2'));
+  EXPECT_TRUE(parser.parse(lt3::alex::grammar('2')));
   EXPECT_TRUE(parser.stream().eof());
 }

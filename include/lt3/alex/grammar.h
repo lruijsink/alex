@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include "defines.h"
 
 LT3_ALEX_NAMESPACE_BEGIN
@@ -16,10 +17,10 @@ public:
   {
   }
 
-  template<class ParserT>
-  bool match(ParserT& parser) const
+  template<class T>
+  bool match(T& parser) const
   {
-    return delegate_(parser);
+    return std::function<bool(T&)>(delegate_)(parser);
   }
 
 private:
