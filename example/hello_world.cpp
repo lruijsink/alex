@@ -8,10 +8,11 @@ int main()
 {
   auto letter = alex::from_to('a', 'z') || alex::from_to('A', 'Z');
   auto digit  = alex::from_to('0', '9');
-  auto uscore = alex::character('_');
 
-  auto identifier = (letter || uscore)
-                  + alex::repeat(letter || uscore || digit);
+  auto identifier = alex::symbol("identifier",
+                        (letter || '_')
+                      + alex::repeat(letter || digit || '_')
+                    );
 
   auto good = std::string_view("a_proper_identifier");
   auto bad  = std::string_view("1_bad_identifier");

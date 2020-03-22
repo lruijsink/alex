@@ -1,11 +1,14 @@
 #pragma once
 
-#include "alex/character.h"
+#include "alex/any.h"
 #include "alex/defines.h"
 #include "alex/from_to.h"
 #include "alex/grammar.h"
+#include "alex/literal.h"
+#include "alex/not.h"
 #include "alex/one_of.h"
 #include "alex/optional.h"
+#include "alex/parse.h"
 #include "alex/parser.h"
 #include "alex/repeat.h"
 #include "alex/stream.h"
@@ -13,3 +16,4 @@
 #include "alex/stream_forker.h"
 #include "alex/stream_range.h"
 #include "alex/stream_traits.h"
+#include "alex/symbol.h"

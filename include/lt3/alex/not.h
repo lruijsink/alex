@@ -6,12 +6,12 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class... GrammarTS>
-auto optional(GrammarTS... grammars)
+template<class GrammarT>
+auto not(GrammarT g)
 {
   return grammar([=] (auto& parser)
   {
-    return (... || parser.parse(grammars)) || true;
+    return !grammar(g).match(parser);
   });
 }
 

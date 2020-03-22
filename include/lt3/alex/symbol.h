@@ -6,12 +6,12 @@
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class... GrammarTS>
-auto optional(GrammarTS... grammars)
+template<class GrammarT>
+auto symbol(std::string name, GrammarT g)
 {
   return grammar([=] (auto& parser)
   {
-    return (... || parser.parse(grammars)) || true;
+    return parser.parse(g);
   });
 }
 

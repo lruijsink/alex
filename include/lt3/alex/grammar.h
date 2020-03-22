@@ -27,7 +27,7 @@ private:
 };
 
 template<class L, class R>
-auto operator||(L lhs, R rhs)
+auto operator||(grammar<L> lhs, grammar<R> rhs)
 {
   return grammar([=] (auto& parser) {
     return parser.parse(lhs) || parser.parse(rhs);
@@ -35,12 +35,48 @@ auto operator||(L lhs, R rhs)
 }
 
 template<class L, class R>
-auto operator+(L lhs, R rhs)
+auto operator+(grammar<L> lhs, grammar<R> rhs)
 {
   return grammar([=] (auto& parser) {
     return parser.parse(lhs) && parser.parse(rhs);
   });
 }
+
+template<class T, class G>
+auto operator||(grammar<G> g, T v)
+{
+  return g || grammar(v);
+}
+
+template<class T, class G>
+auto operator||(T v, grammar<G> g)
+{
+  return grammar(v) || g;
+}
+
+template<class T, class G>
+auto operator+(grammar<G> g, T v)
+{
+  return g + grammar(v);
+}
+
+template<class T, class G>
+auto operator+(T v, grammar<G> g)
+{
+  return grammar(v) + g;
+}
+
+template<class G>
+auto operator||(bool, grammar<G>) = delete;
+
+template<class G>
+auto operator||(grammar<G>, bool) = delete;
+
+template<class G>
+auto operator+(bool, grammar<G>) = delete;
+
+template<class G>
+auto operator+(grammar<G>, bool) = delete;
 
 
 LT3_ALEX_NAMESPACE_END

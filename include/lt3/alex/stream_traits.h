@@ -18,7 +18,7 @@ struct is_streamable
     T,
     std::void_t<decltype(&T::next)>,
     std::void_t<decltype(&T::eof)>
-    >
+  >
   : std::true_type { };
 
 template<class T, class = void, class = void, class = void>

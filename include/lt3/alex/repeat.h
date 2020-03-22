@@ -12,7 +12,7 @@ auto repeat(GrammarT g, int min_count)
   return grammar([=] (auto& parser)
   {
     int count = 0;
-    while (parser.parse(g))
+    while (parser.parse(g) && !parser.stream().eof())
     {
       count++;
     }
