@@ -4,7 +4,7 @@
 #include <vector>
 #include "defines.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class ValueT>
@@ -23,7 +23,7 @@ public:
   {
   }
 
-  auto available()
+  auto available() const
   {
     return position_ != buffer_.size();
   }
@@ -71,4 +71,4 @@ private:
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

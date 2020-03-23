@@ -5,7 +5,7 @@
 #include "defines.h"
 #include "parser.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class GrammarT>
@@ -16,4 +16,4 @@ auto parse(const char* str, GrammarT g)
 }
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

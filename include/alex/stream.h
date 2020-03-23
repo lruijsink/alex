@@ -4,7 +4,7 @@
 #include "defines.h"
 #include "stream_traits.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class SourceT>
@@ -29,7 +29,7 @@ public:
     return stream_.get();
   }
 
-  auto eof()
+  auto eof() const
   {
     return stream_.eof();
   }
@@ -54,4 +54,4 @@ private:
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

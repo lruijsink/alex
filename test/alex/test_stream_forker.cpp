@@ -1,13 +1,13 @@
 #include <string_view>
 #include "gtest/gtest.h"
-#include "lt3/alex/stream_range.h"
-#include "lt3/alex/stream_forker.h"
+#include "alex/stream_range.h"
+#include "alex/stream_forker.h"
 
-TEST(stream_forker_test, basic_get)
+TEST(basic, get_reads_back_then_eof)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
   EXPECT_EQ(stream.get(), '2');
@@ -16,11 +16,11 @@ TEST(stream_forker_test, basic_get)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_join)
+TEST(combos, fork_join)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -35,11 +35,11 @@ TEST(stream_forker_test, fork_join)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_reset)
+TEST(combos, fork_reset)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -55,11 +55,11 @@ TEST(stream_forker_test, fork_reset)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_join_fork_join)
+TEST(combos, fork_join_fork_join)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -80,11 +80,11 @@ TEST(stream_forker_test, fork_join_fork_join)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_reset_fork_reset)
+TEST(combos, fork_reset_fork_reset)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -107,11 +107,11 @@ TEST(stream_forker_test, fork_reset_fork_reset)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_fork_join_join)
+TEST(combos, fork_fork_join_join)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -132,11 +132,11 @@ TEST(stream_forker_test, fork_fork_join_join)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_fork_reset_join)
+TEST(combos, fork_fork_reset_join)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -158,11 +158,11 @@ TEST(stream_forker_test, fork_fork_reset_join)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_fork_join_reset)
+TEST(combos, fork_fork_join_reset)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 
@@ -187,11 +187,11 @@ TEST(stream_forker_test, fork_fork_join_reset)
   EXPECT_TRUE(stream.eof());
 }
 
-TEST(stream_forker_test, fork_fork_reset_reset)
+TEST(combos, fork_fork_reset_reset)
 {
   auto source_range = std::string_view("1234");
-  auto source_stream = lt3::alex::stream_range(source_range);
-  auto stream = lt3::alex::stream_forker(source_stream);
+  auto source_stream = alex::stream_range(source_range);
+  auto stream = alex::stream_forker(source_stream);
 
   EXPECT_EQ(stream.get(), '1');
 

@@ -5,7 +5,7 @@
 #include "reader.h"
 #include "grammar.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class SourceT>
@@ -27,7 +27,7 @@ public:
   template<class... TS>
   bool parse(grammar<TS...> g)
   {
-    return reader(*this, stream_).parse(g);
+    return reader(stream_).parse(g);
   }
 
 private:
@@ -35,4 +35,4 @@ private:
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

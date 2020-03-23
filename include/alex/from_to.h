@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class CharT>
@@ -17,4 +17,4 @@ auto from_to(CharT from, CharT to)
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

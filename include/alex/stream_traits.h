@@ -5,7 +5,7 @@
 #include "stream_range.h"
 #include "stream_forker.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class T, class = void, class = void>
@@ -71,4 +71,4 @@ using make_fork_streamable = std::conditional_t
   >;
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

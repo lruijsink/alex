@@ -3,7 +3,7 @@
 #include <stack>
 #include "defines.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class SourceT>
@@ -35,7 +35,7 @@ public:
          : traits_type::eof();
   }
 
-  auto eof()
+  auto eof() const
   {
     return it_ == end_;
   }
@@ -63,4 +63,4 @@ private:
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

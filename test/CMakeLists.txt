@@ -1,13 +1,31 @@
 project(alex_tests)
 
-add_executable       (alex_parser_test lt3/alex/parser_test.cpp)
-target_link_libraries(alex_parser_test gtest_main)
-add_test             (alex_parser_test alex_parser_test)
+#------------------------------------------------------------------------------
+# GoogleTest dependency
 
-add_executable       (alex_range_stream_test lt3/alex/range_stream_test.cpp)
-target_link_libraries(alex_range_stream_test gtest_main)
-add_test             (alex_range_stream_test alex_range_stream_test)
+include(FetchContent)
 
-add_executable       (alex_stream_forker_test lt3/alex/stream_forker_test.cpp)
-target_link_libraries(alex_stream_forker_test gtest_main)
-add_test             (alex_stream_forker_test alex_stream_forker_test)
+FetchContent_Declare(googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git)
+
+# Prevent problems with linking  
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(googletest)
+
+include_directories(${gmock_SOURCE_DIR}/include)
+
+#------------------------------------------------------------------------------
+# Tests
+
+enable_testing()
+
+function(alex_test test_name)
+    add_executable       (alex_${test_name} alex/${test_name}.cpp)
+    target_link_libraries(alex_${test_name} gtest_main)
+    add_test             (alex_${test_name} ${test_name})
+endfunction()
+
+alex_test("test_grammar")
+alex_test("test_stream_forker")
+alex_test("test_stream_range")

@@ -9,10 +9,11 @@
 #include "grammar.h"
 #include "grammar_abstract.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
-class reader_abstract
+template<>
+class reader<tag::abstract>
 {
 public:
   using traits_type = std::char_traits<char>;
@@ -20,10 +21,12 @@ public:
   using int_type    = typename traits_type::int_type;
 
   virtual int_type get() = 0;
-  virtual bool eof() = 0;
-  virtual bool parse(grammar<tag::poly>& g) = 0;
-  virtual std::unique_ptr<reader_abstract> clone() const = 0;
+  virtual bool eof() const = 0;
+  virtual bool parse(grammar<tag::poly> g) = 0;
+  virtual std::unique_ptr<reader<tag::abstract>> clone() const = 0;
 };
+
+using reader_abstract = reader<tag::abstract>;
 
 template<class... TS>
 class reader_impl : public reader_abstract
@@ -40,12 +43,12 @@ public:
     return reader_.get();
   }
 
-  bool eof() override
+  bool eof() const override
   {
     return reader_.eof();
   }
 
-  bool parse(grammar<tag::poly> g)
+  bool parse(grammar<tag::poly> g) override
   {
     return reader_.parse(g);
   }
@@ -83,7 +86,7 @@ public:
     return ptr_->get();
   }
 
-  bool eof()
+  bool eof() const
   {
     return ptr_->eof();
   }
@@ -98,4 +101,4 @@ private:
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

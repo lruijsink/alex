@@ -6,7 +6,7 @@
 #include "reader.h"
 #include "reader_abstract.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class T>
@@ -57,4 +57,4 @@ template<class T>
 auto operator+(grammar<T>, bool) = delete;
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

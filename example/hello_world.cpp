@@ -1,8 +1,6 @@
 #include <string_view>
 #include <iostream>
-#include "lt3/alex.h"
-
-using namespace lt3;
+#include "alex/alex.h"
 
 int main()
 {

@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 inline auto any()
@@ -18,4 +18,4 @@ inline auto any()
 }
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

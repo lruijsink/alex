@@ -3,8 +3,8 @@
 #include <memory>
 #include "defines.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

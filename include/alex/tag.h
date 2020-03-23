@@ -2,14 +2,16 @@
 
 #include "defines.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 struct tag
 {
   struct poly {};
+  struct abstract {};
+  struct impl {};
   struct recursive {};
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

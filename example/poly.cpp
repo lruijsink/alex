@@ -1,9 +1,9 @@
 #include <memory>
-#include "lt3/alex.h"
+#include "alex/alex.h"
 
 //#include "lt3/alex/grammar.h"
 
-using namespace lt3::alex;
+using namespace alex;
 
 int main()
 {

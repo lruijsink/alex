@@ -4,7 +4,7 @@
 #include "grammar.h"
 #include "optional.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
 template<class GrammarT>
@@ -35,4 +35,4 @@ auto repeat(GrammarT g, DelimT d, int min_count = 0)
 }
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END

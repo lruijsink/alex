@@ -4,37 +4,35 @@
 #include "grammar.h"
 #include "tag.h"
 
-LT3_ALEX_NAMESPACE_BEGIN
+ALEX_NAMESPACE_BEGIN
 
 
-template<class ParserT>
-class reader
+template<class StreamT>
+class reader<StreamT>
 {
 public:
-  using parser_type = ParserT;
-  using stream_type = typename parser_type::stream_type;
+  using stream_type = StreamT;
   using traits_type = typename stream_type::traits_type;
   using char_type   = typename traits_type::char_type;
   using int_type    = typename traits_type::int_type;
 
-  reader(parser_type& parser, stream_type& stream)
-    : parser_(parser)
-    , stream_(stream)
+  reader(stream_type& stream)
+    : stream_(stream)
   {
   }
 
-  auto get() -> int_type
+  auto get()
   {
     return stream_.get();
   }
 
-  auto eof() -> bool
+  auto eof() const
   {
     return stream_.eof();
   }
 
   template<class T>
-  auto parse(grammar<T> g) -> bool
+  auto parse(grammar<T> g)
   {
     stream_.fork();
     auto matches = g.match(*this);
@@ -48,9 +46,8 @@ public:
   }
 
 private:
-  parser_type& parser_;
   stream_type& stream_;
 };
 
 
-LT3_ALEX_NAMESPACE_END
+ALEX_NAMESPACE_END
