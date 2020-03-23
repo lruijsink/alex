@@ -8,11 +8,11 @@ LT3_ALEX_NAMESPACE_BEGIN
 
 inline auto any()
 {
-  return grammar([=] (auto& parser)
+  return grammar([=] (auto r)
   {
-    if (parser.stream().eof())
+    if (r.eof())
       return false;
-    parser.stream().get();
+    r.get();
     return true;
   });
 }

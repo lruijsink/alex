@@ -9,9 +9,9 @@ LT3_ALEX_NAMESPACE_BEGIN
 template<class... GrammarTS>
 auto optional(GrammarTS... gs)
 {
-  return grammar([=] (auto& parser)
+  return grammar([=] (auto r)
   {
-    return (... || parser.parse(grammar(gs))) || true;
+    return (... || r.parse(grammar(gs))) || true;
   });
 }
 

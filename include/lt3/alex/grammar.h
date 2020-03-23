@@ -1,83 +1,60 @@
 #pragma once
 
-#include <functional>
+#include <type_traits>
 #include "defines.h"
+#include "tag.h"
+#include "reader.h"
+#include "reader_abstract.h"
 
 LT3_ALEX_NAMESPACE_BEGIN
 
 
-template<class DelegateT>
-class grammar
+template<class T>
+class grammar<T>
 {
 public:
-  using delegate_type = DelegateT;
+  grammar(T fnc) : fnc_(fnc) {}
 
-  grammar(delegate_type d)
-    : delegate_(d)
+  template<class... TS>
+  bool match(reader<TS...> r) const
   {
-  }
-
-  template<class T>
-  bool match(T& parser) const
-  {
-    return std::function<bool(T&)>(delegate_)(parser);
+    return fnc_(r);
   }
 
 private:
-  delegate_type delegate_;
+  static constexpr bool is_fnc =
+    std::is_invocable_v<T, reader<tag::poly>>;
+
+  std::enable_if_t<is_fnc, T> fnc_;
 };
 
 template<class L, class R>
-auto operator||(grammar<L> lhs, grammar<R> rhs)
+auto operator+(L lhs, R rhs)
 {
-  return grammar([=] (auto& parser) {
-    return parser.parse(lhs) || parser.parse(rhs);
+  return grammar([=] (auto r) {
+    return grammar(lhs).match(r) && grammar(rhs).match(r);
   });
 }
 
 template<class L, class R>
-auto operator+(grammar<L> lhs, grammar<R> rhs)
+auto operator||(L lhs, R rhs)
 {
-  return grammar([=] (auto& parser) {
-    return parser.parse(lhs) && parser.parse(rhs);
+  return grammar([=] (auto r) {
+    return grammar(lhs).match(r) || grammar(rhs).match(r);
   });
 }
 
-template<class T, class G>
-auto operator||(grammar<G> g, T v)
-{
-  return g || grammar(v);
-}
+template<class T>
+auto operator||(bool, grammar<T>) = delete;
 
-template<class T, class G>
-auto operator||(T v, grammar<G> g)
-{
-  return grammar(v) || g;
-}
+template<class T>
+auto operator||(grammar<T>, bool) = delete;
 
-template<class T, class G>
-auto operator+(grammar<G> g, T v)
-{
-  return g + grammar(v);
-}
+template<class T>
+auto operator+(bool, grammar<T>) = delete;
 
-template<class T, class G>
-auto operator+(T v, grammar<G> g)
-{
-  return grammar(v) + g;
-}
-
-template<class G>
-auto operator||(bool, grammar<G>) = delete;
-
-template<class G>
-auto operator||(grammar<G>, bool) = delete;
-
-template<class G>
-auto operator+(bool, grammar<G>) = delete;
-
-template<class G>
-auto operator+(grammar<G>, bool) = delete;
+template<class T>
+auto operator+(grammar<T>, bool) = delete;
 
 
 LT3_ALEX_NAMESPACE_END

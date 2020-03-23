@@ -2,6 +2,7 @@
 
 #include "defines.h"
 #include "stream.h"
+#include "reader.h"
 #include "grammar.h"
 
 LT3_ALEX_NAMESPACE_BEGIN
@@ -23,23 +24,10 @@ public:
   parser(const parser&) = delete;
   parser(parser&&) = delete;
 
-  template<class G>
-  bool parse(grammar<G> g)
+  template<class... TS>
+  bool parse(grammar<TS...> g)
   {
-    stream_.fork();
-    auto matches = g.match(*this);
-
-    if (matches)
-      stream_.join();
-    else
-      stream_.reset();
-
-    return matches;
-  }
-
-  stream_type& stream()
-  {
-    return stream_;
+    return reader(*this, stream_).parse(g);
   }
 
 private:

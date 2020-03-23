@@ -9,9 +9,9 @@ LT3_ALEX_NAMESPACE_BEGIN
 template<class GrammarT>
 auto symbol(std::string name, GrammarT g)
 {
-  return grammar([=] (auto& parser)
+  return grammar([=] (auto r)
   {
-    return parser.parse(g);
+    return r.parse(g);
   });
 }
 

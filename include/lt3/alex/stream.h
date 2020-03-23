@@ -13,8 +13,8 @@ class stream
 public:
   using source_type = SourceT;
   using stream_type = make_fork_streamable<source_type>;
-  using char_type   = typename stream_type::char_type;
-  using traits_type = std::char_traits<char_type>;
+  using traits_type = typename stream_type::traits_type;
+  using char_type   = typename traits_type::char_type;
   using int_type    = typename traits_type::int_type;
 
   stream(source_type& source)

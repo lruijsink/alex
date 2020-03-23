@@ -3,6 +3,7 @@
 #include <string>
 #include "defines.h"
 #include "grammar.h"
+#include "reader.h"
 
 LT3_ALEX_NAMESPACE_BEGIN
 
@@ -11,15 +12,12 @@ template<>
 class grammar<char>
 {
 public:
-  grammar(char c)
-    : c_(c)
-  {
-  }
+  grammar(char c) : c_(c) {}
 
-  template<class ParserT>
-  bool match(ParserT& parser) const
+  template<class... TS>
+  bool match(reader<TS...> r) const
   {
-    return parser.stream().get() == c_;
+    return r.get() == c_;
   }
 
 private:
@@ -30,16 +28,13 @@ template<>
 class grammar<std::string>
 {
 public:
-  grammar(std::string s)
-    : s_(s)
-  {
-  }
+  grammar(std::string s) : s_(s) {}
 
-  template<class ParserT>
-  bool match(ParserT& parser) const
+  template<class... TS>
+  bool match(reader<TS...> r) const
   {
     for (auto c : s_)
-      if (parser.stream().get() != c)
+      if (c != r.get())
         return false;
     return true;
   }
@@ -52,22 +47,16 @@ template<>
 class grammar<const char*>
 {
 public:
-  grammar(const char* s)
-    : s_(s)
-  {
-  }
+  grammar(const char* s) : s_(s) {}
 
-  template<class ParserT>
-  bool match(ParserT& parser) const
+  template<class... TS>
+  bool match(reader<TS...> r) const
   {
-    for (auto c : s_)
-      if (parser.stream().get() != c)
-        return false;
-    return true;
+    return s_.match(r);
   }
 
 private:
-  std::string s_;
+  grammar<std::string> s_;
 };
 
 
