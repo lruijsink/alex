@@ -23,15 +23,18 @@ int main()
 
   auto boolean        = alex::one_of("true", "false");
 
-  auto expression     = (number || string_literal || boolean || "null");
+  auto object         = alex::recursive();
+  auto array          = alex::recursive();
+
+  auto expression     = (object || array || number || string_literal || boolean || "null");
 
   auto field_name     = string_literal;
   auto colon          = ws + ':' + ws;
   auto comma          = ws + ',' + ws;
   auto field          = field_name + colon + expression;
 
-  auto object         = '{' + ws + alex::repeat(field).separator(comma) + ws + '}';
-  auto array          = '[' + ws + alex::repeat(expression).separator(comma) + ws + ']';
+  object              = '{' + ws + alex::repeat(field).separator(comma) + ws + '}';
+  array               = '[' + ws + alex::repeat(expression).separator(comma) + ws + ']';
 
   std::cout << alex::parse("0",      number) << "\n";                    // true
   std::cout << alex::parse("-1",     number) << "\n";                    // true
@@ -43,6 +46,8 @@ int main()
 
   std::cout << alex::parse("{ \"foo\" : \"bar\" }",     object) << "\n"; // true
   std::cout << alex::parse("{\"foo\": null, \"x\": 0}", object) << "\n"; // true
+
+  std::cout << alex::parse("{\"outer\" : {\"inner\" : 0}}", object);
 
   // problem: objects and arrays are self- and cross-referential...
 }

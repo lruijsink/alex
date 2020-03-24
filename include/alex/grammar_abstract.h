@@ -60,6 +60,34 @@ public:
     : grammar(grammar<TS...>(vs...)) {}
 
   template<class... TS>
+  auto& operator=(const grammar<TS...>& g)
+  {
+    ptr_ = std::make_unique<grammar_impl<TS...>>(g);
+    return* this;
+  }
+
+  template<class... TS>
+  auto& operator=(grammar<TS...>&& g)
+  {
+    ptr_ = std::make_unique<grammar_impl<TS...>>(g);
+    return* this;
+  }
+
+  template<class... TS>
+  auto& operator=(const grammar<tag::poly>& g)
+  {
+    ptr_ = g.ptr_->clone();
+    return* this;
+  }
+
+  template<class... TS>
+  auto& operator=(grammar<tag::poly>&& g)
+  {
+    ptr_ = std::move(g.ptr_);
+    return* this;
+  }
+
+  template<class... TS>
   bool match(reader<TS...> r)
   {
     return ptr_->match(reader<tag::poly>(r));
