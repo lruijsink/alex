@@ -36,18 +36,18 @@ int main()
   object              = '{' + ws + alex::repeat(field).separator(comma) + ws + '}';
   array               = '[' + ws + alex::repeat(expression).separator(comma) + ws + ']';
 
-  std::cout << alex::parse("0",      number) << "\n";                    // true
-  std::cout << alex::parse("-1",     number) << "\n";                    // true
-  std::cout << alex::parse("3.141",  number) << "\n";                    // true
-  std::cout << alex::parse("-1.5e4", number) << "\n";                    // true
+  std::cout << alex::parse("0",      number) << "\n";                        // true
+  std::cout << alex::parse("-1",     number) << "\n";                        // true
+  std::cout << alex::parse("3.141",  number) << "\n";                        // true
+  std::cout << alex::parse("-1.5e4", number) << "\n";                        // true
+                                                                             
+  std::cout << alex::parse("[\"foo\",-0.5,true]", array) << "\n";            // true
+  std::cout << alex::parse("[ false , 1e10 ]",    array) << "\n";            // true
+                                                                             
+  std::cout << alex::parse("{ \"foo\" : \"bar\" }",     object) << "\n";     // true
+  std::cout << alex::parse("{\"foo\": null, \"x\": 0}", object) << "\n";     // true
 
-  std::cout << alex::parse("[\"foo\",-0.5,true]", array) << "\n";        // true
-  std::cout << alex::parse("[ false , 1e10 ]",    array) << "\n";        // true
+  std::cout << alex::parse("{\"outer\" : {\"inner\" : 0}}", object) << "\n"; // true
 
-  std::cout << alex::parse("{ \"foo\" : \"bar\" }",     object) << "\n"; // true
-  std::cout << alex::parse("{\"foo\": null, \"x\": 0}", object) << "\n"; // true
-
-  std::cout << alex::parse("{\"outer\" : {\"inner\" : 0}}", object);
-
-  // problem: objects and arrays are self- and cross-referential...
+  std::cout << alex::parse("[\"outer\", [\"inner\"]]", array) << "\n";       // true
 }
