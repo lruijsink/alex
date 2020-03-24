@@ -297,7 +297,7 @@ TEST(separator, with_count)
 
 TEST(combined, floating_point)
 {
-  auto num = alex::from_to('0', '9');
+  auto num = alex::from('0').to('9');
   auto g = alex::repeat(num).until('.').min(1) + alex::repeat(num).min(1);
 
   EXPECT_FALSE(alex::parse(".0",      g + alex::eof()));

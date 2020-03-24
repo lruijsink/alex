@@ -7,13 +7,24 @@ ALEX_NAMESPACE_BEGIN
 
 
 template<class CharT>
-auto from_to(CharT from, CharT to)
+struct from_to_maker
 {
-  return grammar([=] (auto r)
+  char from;
+
+  auto to(CharT to)
   {
-    auto v = r.get();
-    return from <= v && v <= to;
-  });
+    return grammar([=] (auto r)
+    {
+      auto v = r.get();
+      return from <= v && v <= to;
+    });
+  }
+};
+
+template<class CharT>
+auto from(CharT from)
+{
+  return from_to_maker<CharT>{ from };
 };
 
 

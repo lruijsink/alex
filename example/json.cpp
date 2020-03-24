@@ -7,11 +7,11 @@ int main()
   auto ws_char        = alex::one_of(' ', '\t', '\n', 'r');
   auto ws             = alex::repeat(ws_char);
 
-  auto letter         = alex::from_to('a', 'z') || alex::from_to('A', 'Z');
-  auto digit          = alex::from_to('0', '9');
+  auto letter         = alex::from('a').to('z') || alex::from('A').to('Z');
+  auto digit          = alex::from('0').to('9');
 
   auto digits         = alex::repeat(digit);
-  auto int_num        = '0' || (alex::from_to('1', '9') + digits);
+  auto int_num        = '0' || (alex::from('1').to('9') + digits);
   auto float_num      = int_num + alex::optional('.' + digits);
   auto sign           = '-';
   auto power          = alex::one_of('e', 'E') + alex::optional('+', '-') + digits;
@@ -30,8 +30,8 @@ int main()
   auto comma          = ws + ',' + ws;
   auto field          = field_name + colon + expression;
 
-  auto object         = '{' + ws + alex::repeat(field, comma) + ws + '}';
-  auto array          = '[' + ws + alex::repeat(expression, comma) + ws + ']';
+  auto object         = '{' + ws + alex::repeat(field).separator(comma) + ws + '}';
+  auto array          = '[' + ws + alex::repeat(expression).separator(comma) + ws + ']';
 
   std::cout << alex::parse("0",      number) << "\n";                    // true
   std::cout << alex::parse("-1",     number) << "\n";                    // true
