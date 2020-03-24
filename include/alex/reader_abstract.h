@@ -12,8 +12,7 @@
 ALEX_NAMESPACE_BEGIN
 
 
-template<>
-class reader<tag::abstract>
+class reader_abstract
 {
 public:
   using traits_type = std::char_traits<char>;
@@ -22,11 +21,9 @@ public:
 
   virtual int_type get() = 0;
   virtual bool eof() const = 0;
-  virtual bool parse(grammar<tag::poly> g) = 0;
-  virtual std::unique_ptr<reader<tag::abstract>> clone() const = 0;
+  virtual bool parse(grammar<tag::poly>& g) = 0;
+  virtual std::unique_ptr<reader_abstract> clone() const = 0;
 };
-
-using reader_abstract = reader<tag::abstract>;
 
 template<class... TS>
 class reader_impl : public reader_abstract
@@ -48,7 +45,7 @@ public:
     return reader_.eof();
   }
 
-  bool parse(grammar<tag::poly> g) override
+  bool parse(grammar<tag::poly>& g) override
   {
     return reader_.parse(g);
   }
@@ -91,9 +88,10 @@ public:
     return ptr_->eof();
   }
 
-  bool parse(grammar<tag::poly> g)
+  template<class... TS>
+  bool parse(grammar<TS...> g)
   {
-    return ptr_->parse(g);
+    return ptr_->parse(grammar<tag::poly>(g));
   }
 
 private:

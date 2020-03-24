@@ -38,8 +38,18 @@ template<>
 class grammar<tag::poly>
 {
 public:
+  grammar()
+    : ptr_(nullptr) {}
+
   grammar(const grammar<tag::poly>& g)
     : ptr_(g.ptr_->clone()) {}
+
+  grammar(const grammar_abstract& g)
+    : ptr_(g.clone()) {}
+
+  template<class... TS>
+  grammar(grammar_impl<TS...> g)
+    : ptr_(g.clone()) {}
 
   template<class... TS>
   grammar(grammar<TS...> g)
@@ -49,9 +59,10 @@ public:
   grammar(TS... vs)
     : grammar(grammar<TS...>(vs...)) {}
 
-  bool match(reader<tag::poly>& r)
+  template<class... TS>
+  bool match(reader<TS...> r)
   {
-    return ptr_->match(r);
+    return ptr_->match(reader<tag::poly>(r));
   }
 
 private:

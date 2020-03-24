@@ -18,14 +18,16 @@ include_directories(${gmock_SOURCE_DIR}/include)
 #------------------------------------------------------------------------------
 # Tests
 
-enable_testing()
-
-function(alex_test test_name)
-    add_executable       (alex_${test_name} alex/${test_name}.cpp)
-    target_link_libraries(alex_${test_name} gtest_main)
-    add_test             (alex_${test_name} ${test_name})
+function(unit_test test_name)
+    add_executable(test_${test_name} alex/test_${test_name}.cpp)
+    target_link_libraries(test_${test_name} gtest_main)
+    add_test(test_${test_name} test_${test_name})
 endfunction()
 
-alex_test("test_grammar")
-alex_test("test_stream_forker")
-alex_test("test_stream_range")
+unit_test(any)
+unit_test(from_to)
+unit_test(grammar)
+unit_test(grammar_abstract)
+unit_test(literal)
+unit_test(stream_forker)
+unit_test(stream_range)

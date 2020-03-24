@@ -8,8 +8,6 @@ ALEX_NAMESPACE_BEGIN
 struct tag
 {
   struct poly {};
-  struct abstract {};
-  struct impl {};
   struct recursive {};
 };
 
