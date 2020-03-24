@@ -5,6 +5,7 @@
 #include "any.h"
 #include "any_but.h"
 #include "eof.h"
+#include "fixed.h"
 #include "from_to.h"
 #include "grammar.h"
 #include "grammar_abstract.h"

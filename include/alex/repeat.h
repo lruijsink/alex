@@ -2,7 +2,7 @@
 
 #include "defines.h"
 #include "grammar.h"
-#include "empty.h"
+#include "fixed.h"
 
 ALEX_NAMESPACE_BEGIN
 
@@ -17,10 +17,10 @@ class grammar<tag::repeat, PatternT, UntilT, SeparatorT>
 {
 public:
   static constexpr bool has_empty_until
-    = std::is_same_v<UntilT, grammar<tag::empty<false>>>;
+    = std::is_same_v<UntilT, grammar<std::false_type>>;
   
   static constexpr bool has_empty_separator
-    = std::is_same_v<SeparatorT, grammar<tag::empty<true>>>;
+    = std::is_same_v<SeparatorT, grammar<std::true_type>>;
 
   static constexpr int no_min = 0;
   static constexpr int no_max = -1;
@@ -143,8 +143,8 @@ auto repeat(T g)
   using basic_type = grammar<
     tag::repeat,
     decltype(grammar(g)),
-    grammar<tag::empty<false>>,
-    grammar<tag::empty<true>>
+    grammar<std::false_type>,
+    grammar<std::true_type>
   >;
   return basic_type(grammar(g));
 }
