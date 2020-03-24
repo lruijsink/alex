@@ -1,12 +1,14 @@
 #pragma once
 
-#include "any.h"
 #include "defines.h"
+
+#include "any.h"
+#include "any_but.h"
+#include "eof.h"
 #include "from_to.h"
 #include "grammar.h"
 #include "grammar_abstract.h"
 #include "literal.h"
-#include "not.h"
 #include "one_of.h"
 #include "optional.h"
 #include "parse.h"
@@ -20,5 +22,4 @@
 #include "stream_forker.h"
 #include "stream_range.h"
 #include "stream_traits.h"
-#include "symbol.h"
 #include "tag.h"

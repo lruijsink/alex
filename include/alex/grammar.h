@@ -32,7 +32,7 @@ template<class L, class R>
 auto operator+(L lhs, R rhs)
 {
   return grammar([=] (auto r) {
-    return grammar(lhs).match(r) && grammar(rhs).match(r);
+    return r.parse(grammar(lhs)) && r.parse(grammar(rhs));
   });
 }
 
@@ -40,7 +40,7 @@ template<class L, class R>
 auto operator||(L lhs, R rhs)
 {
   return grammar([=] (auto r) {
-    return grammar(lhs).match(r) || grammar(rhs).match(r);
+    return r.parse(grammar(lhs)) || r.parse(grammar(rhs));
   });
 }
 

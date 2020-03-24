@@ -6,12 +6,11 @@
 ALEX_NAMESPACE_BEGIN
 
 
-template<class GrammarT>
-auto symbol(std::string name, GrammarT g)
+inline auto eof()
 {
   return grammar([=] (auto r)
   {
-    return r.parse(g);
+    return r.eof();
   });
 }
 

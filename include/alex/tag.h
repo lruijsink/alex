@@ -5,11 +5,11 @@
 ALEX_NAMESPACE_BEGIN
 
 
-struct tag
+namespace tag
 {
   struct poly {};
   struct recursive {};
-};
+}
 
 
 ALEX_NAMESPACE_END

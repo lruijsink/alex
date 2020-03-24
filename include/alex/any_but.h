@@ -6,12 +6,12 @@
 ALEX_NAMESPACE_BEGIN
 
 
-template<class GrammarT>
-auto not(GrammarT g)
+template<class... TS>
+inline auto any_but(TS... cs)
 {
   return grammar([=] (auto r)
   {
-    return !grammar(g).match(r);
+    return !r.eof() && !((r.get() == static_cast<char>(cs)) || ...);
   });
 }
 

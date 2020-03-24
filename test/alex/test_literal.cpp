@@ -1,8 +1,9 @@
 #include "gtest/gtest.h"
 
 #include "alex/parse.h"
-#include "alex/literal.h"
 #include "alex/any.h"
+
+#include "alex/literal.h"
 
 TEST(explicit_construct, match_char)
 {

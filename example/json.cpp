@@ -17,7 +17,7 @@ int main()
   auto power          = alex::one_of('e', 'E') + alex::optional('+', '-') + digits;
   auto number         = alex::optional(sign) + float_num + alex::optional(power);
 
-  auto string_char    = ('\\' + alex::any()) || alex::not('"');
+  auto string_char    = ('\\' + alex::any()) || alex::any_but('"');
   auto string_content = alex::repeat(string_char);
   auto string_literal = '"' + string_content + '"';
 

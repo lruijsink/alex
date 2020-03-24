@@ -4,15 +4,16 @@
 
 #include "alex/parse.h"
 #include "alex/grammar.h"
-#include "alex/grammar_abstract.h"
 #include "alex/literal.h"
 
-template<class... TS>
-auto counted(int* counter, alex::grammar<TS...> g)
+#include "alex/grammar_abstract.h"
+
+template<class T>
+auto counted(int* counter, T g)
 {
   return alex::grammar([=] (auto r) {
     (*counter)++;
-    return g.match(r);
+    return alex::grammar(g).match(r);
   });
 }
 

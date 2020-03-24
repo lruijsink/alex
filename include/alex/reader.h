@@ -31,8 +31,8 @@ public:
     return stream_.eof();
   }
 
-  template<class T>
-  auto parse(grammar<T> g)
+  template<class... TS>
+  auto parse(grammar<TS...> g)
   {
     stream_.fork();
     auto matches = g.match(*this);

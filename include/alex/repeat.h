@@ -2,36 +2,151 @@
 
 #include "defines.h"
 #include "grammar.h"
-#include "optional.h"
+#include "empty.h"
 
 ALEX_NAMESPACE_BEGIN
 
 
-template<class GrammarT>
-auto repeat(GrammarT g, int min_count = 0)
+namespace tag
 {
-  auto G = grammar(g);
-  return grammar([=] (auto r)
-  {
-    int c = 0;
-    while (r.parse(G) && !r.eof())
-      c++;
-    return c >= min_count;
-  });
+  struct repeat {};
 }
 
-template<class GrammarT, class DelimT>
-auto repeat(GrammarT g, DelimT d, int min_count = 0)
+template<class PatternT, class UntilT, class SeparatorT>
+class grammar<tag::repeat, PatternT, UntilT, SeparatorT>
 {
-  auto G = grammar(g);
-  auto D = grammar(d);
-  return grammar([=] (auto r)
+public:
+  static constexpr bool has_empty_until
+    = std::is_same_v<UntilT, grammar<tag::empty<false>>>;
+  
+  static constexpr bool has_empty_separator
+    = std::is_same_v<SeparatorT, grammar<tag::empty<true>>>;
+
+  static constexpr int no_min = 0;
+  static constexpr int no_max = -1;
+
+  grammar(PatternT pattern)
+    : pattern_(pattern)
+    , min_(no_min)
+    , max_(no_max)
   {
-    int c = 0;
-    while (c == 0 ? r.parse(G) : r.parse(D + G) && !r.eof())
-      c++;
-    return c >= min_count;
-  });
+  }
+
+  grammar(PatternT pattern,
+          UntilT until,
+          SeparatorT separator,
+          int min_v,
+          int max_v)
+    : pattern_(pattern)
+    , until_(until)
+    , separator_(separator)
+    , min_(min_v)
+    , max_(max_v)
+  {
+  }
+
+  template<class... TS>
+  bool match(reader<TS...> r)
+  {
+    if (max_ != no_max && max_ < min_)
+      return false;
+
+    int count = 0;
+
+    auto P = pattern_;
+    auto U = until_;
+    auto S = separator_;
+
+    if (has_empty_until)
+    {
+      while (count == 0 ? r.parse(P) : r.parse(S + P))
+      {
+        ++count;
+        if (max_ != no_max && count == max_)
+          return true;
+      }
+    }
+    else
+    {
+      while (!r.parse(U))
+      {
+        if (max_ != no_max && count == max_)
+          return false;
+        else if (count == 0 ? r.parse(P) : r.parse(S + P))
+          ++count;
+        else
+          return false;
+      }
+    }
+    return min_ <= count;
+  }
+
+  auto min(int n)
+  {
+    if (n >= 0)
+      min_ = n;
+    return *this;
+  }
+
+  auto max(int n)
+  {
+    if (n >= 0)
+      max_ = n;
+    return *this;
+  }
+
+  auto count(int n)
+  {
+    min_ = n;
+    max_ = n;
+    return *this;
+  }
+
+  template<class... TS>
+  auto until(grammar<TS...> g)
+  {
+    using new_type = grammar<tag::repeat, PatternT, grammar<TS...>, SeparatorT>;
+    return new_type(pattern_, g, separator_, min_, max_);
+  }
+
+  template<class T>
+  auto until(T v)
+  {
+    return until(grammar<T>(v));
+  }
+
+  template<class... TS>
+  auto separator(grammar<TS...> g)
+  {
+    using new_type = grammar<tag::repeat, PatternT, UntilT, grammar<TS...>>;
+    return new_type(pattern_, until_, g, min_, max_);
+  }
+
+  template<class T>
+  auto separator(T v)
+  {
+    return separator(grammar<T>(v));
+  }
+
+private:
+  int min_;
+  int max_;
+
+  PatternT pattern_;
+  UntilT until_;
+  SeparatorT separator_;
+};
+
+template<class T>
+auto repeat(T g)
+{
+  using basic_type = grammar<
+    tag::repeat,
+    decltype(grammar(g)),
+    grammar<tag::empty<false>>,
+    grammar<tag::empty<true>>
+  >;
+  return basic_type(grammar(g));
 }
 
 
