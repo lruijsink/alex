@@ -16,7 +16,7 @@ public:
   grammar(T fnc) : fnc_(fnc) {}
 
   template<class... TS>
-  bool match(reader<TS...> r) const
+  bool read_and_test(reader<TS...> r) const
   {
     return fnc_(r);
   }

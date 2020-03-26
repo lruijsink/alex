@@ -9,10 +9,10 @@ ALEX_NAMESPACE_BEGIN
 
 
 template<class GrammarT>
-auto parse(const char* str, GrammarT g)
+auto match(const char* str, GrammarT g)
 {
   auto source = std::string_view(str);
-  return parser(source).parse(g);
+  return parser(source).match(g);
 }
 
 

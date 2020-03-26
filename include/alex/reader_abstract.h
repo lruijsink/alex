@@ -19,9 +19,13 @@ public:
   using char_type   = typename traits_type::char_type;
   using int_type    = typename traits_type::int_type;
 
+  virtual ~reader_abstract()
+  {
+  }
+
   virtual int_type get() = 0;
   virtual bool eof() const = 0;
-  virtual bool parse(grammar<tag::poly>& g) = 0;
+  virtual bool parse(const grammar<tag::poly>& g) = 0;
   virtual std::unique_ptr<reader_abstract> clone() const = 0;
 };
 
@@ -45,7 +49,7 @@ public:
     return reader_.eof();
   }
 
-  bool parse(grammar<tag::poly>& g) override
+  bool parse(const grammar<tag::poly>& g) override
   {
     return reader_.parse(g);
   }

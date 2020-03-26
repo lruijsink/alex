@@ -12,7 +12,7 @@ template<>
 struct grammar<std::true_type>
 {
   template<class... TS>
-  bool match(reader<TS...>)
+  bool read_and_test(reader<TS...>)
   {
     return true;
   }
@@ -22,9 +22,9 @@ template<>
 struct grammar<std::false_type>
 {
   template<class... TS>
-  bool match(reader<TS...>)
+  bool read_and_test(reader<TS...>)
   {
-    return true;
+    return false;
   }
 };
 

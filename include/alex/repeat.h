@@ -46,7 +46,7 @@ public:
   }
 
   template<class... TS>
-  bool match(reader<TS...> r)
+  bool read_and_test(reader<TS...> r)
   {
     if (max_ != no_max && max_ < min_)
       return false;
@@ -129,12 +129,11 @@ public:
   }
 
 private:
-  int min_;
-  int max_;
-
   PatternT pattern_;
   UntilT until_;
   SeparatorT separator_;
+  int min_;
+  int max_;
 };
 
 template<class T>

@@ -25,9 +25,9 @@ public:
   parser(parser&&) = delete;
 
   template<class... TS>
-  bool parse(grammar<TS...> g)
+  bool match(grammar<TS...> g)
   {
-    return reader(stream_).parse(g);
+    return reader<decltype(stream_)>(stream_).parse(g);
   }
 
 private:

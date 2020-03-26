@@ -13,15 +13,15 @@ auto counted(int* counter, T g)
 {
   return alex::grammar([=] (auto r) {
     (*counter)++;
-    return alex::grammar(g).match(r);
+    return r.parse(alex::grammar(g));
   });
 }
 
-auto true_g = alex::grammar([&] (auto r) {
+auto true_g = alex::grammar([] (auto r) {
   return true;
 });
 
-auto false_g = alex::grammar([&] (auto r) {
+auto false_g = alex::grammar([] (auto r) {
   return false;
 });
 
@@ -31,8 +31,8 @@ TEST(delegates, calls_underlying)
   auto poly_true  = alex::grammar<alex::tag::poly>(counted(&calls, true_g));
   auto poly_false = alex::grammar<alex::tag::poly>(counted(&calls, false_g));
 
-  EXPECT_TRUE(alex::parse("abc", poly_true));
-  EXPECT_FALSE(alex::parse("abc", poly_false));
+  EXPECT_TRUE(alex::match("abc", poly_true));
+  EXPECT_FALSE(alex::match("abc", poly_false));
   EXPECT_EQ(2, calls);
 }
 
@@ -42,21 +42,21 @@ TEST(delegates, copy_calls_underlying)
   auto poly = alex::grammar<alex::tag::poly>(counted(&calls, true_g));
   auto copy = alex::grammar<alex::tag::poly>(poly);
 
-  EXPECT_TRUE(alex::parse("abc", copy));
+  EXPECT_TRUE(alex::match("abc", copy));
   EXPECT_EQ(1, calls);
 }
 
 TEST(casts, from_char)
 {
-  EXPECT_TRUE(alex::parse("a", alex::grammar<alex::tag::poly>('a')));
+  EXPECT_TRUE(alex::match("a", alex::grammar<alex::tag::poly>('a')));
 }
 
 TEST(casts, from_const_char)
 {
-  EXPECT_TRUE(alex::parse("abc", alex::grammar<alex::tag::poly>("abc")));
+  EXPECT_TRUE(alex::match("abc", alex::grammar<alex::tag::poly>("abc")));
 }
 
 TEST(casts, from_string)
 {
-  EXPECT_TRUE(alex::parse("xyz", alex::grammar<alex::tag::poly>(std::string("xyz"))));
+  EXPECT_TRUE(alex::match("xyz", alex::grammar<alex::tag::poly>(std::string("xyz"))));
 }

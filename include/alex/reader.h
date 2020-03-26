@@ -35,7 +35,7 @@ public:
   auto parse(grammar<TS...> g)
   {
     stream_.fork();
-    auto matches = g.match(*this);
+    auto matches = g.read_and_test(*this);
 
     if (matches)
       stream_.join();

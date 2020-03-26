@@ -8,16 +8,6 @@
 ALEX_NAMESPACE_BEGIN
 
 
-//
-// R ---> shared_ptr ---> grammar<tag::poly> ---> nullptr
-//
-
-// R ---
-//      \
-//       +---> shared_ptr ---> grammar<tag::poly> ---> grammar<TS...>
-//      /
-// R'---
-
 template<>
 class grammar<tag::recursive>
 {
@@ -43,9 +33,9 @@ public:
   }
 
   template<class... TS>
-  bool match(reader<TS...> r)
+  bool read_and_test(reader<TS...> r)
   {
-    return ptr_->match(r);
+    return ptr_->read_and_test(r);
   }
 
 private:

@@ -10,7 +10,11 @@ ALEX_NAMESPACE_BEGIN
 
 struct grammar_abstract
 {
-  virtual bool match(reader<tag::poly>&) = 0;
+  virtual ~grammar_abstract()
+  {
+  }
+
+  virtual bool read_and_test(const reader<tag::poly>&) = 0;
   virtual std::unique_ptr<grammar_abstract> clone() const = 0;
 };
 
@@ -20,9 +24,9 @@ class grammar_impl : public grammar_abstract
 public:
   grammar_impl(grammar<TS...> g) : g_(g) {}
 
-  bool match(reader<tag::poly>& r) override
+  bool read_and_test(const reader<tag::poly>& r) override
   {
-    return g_.match(r);
+    return g_.read_and_test(r);
   }
 
   std::unique_ptr<grammar_abstract> clone() const override
@@ -88,9 +92,9 @@ public:
   }
 
   template<class... TS>
-  bool match(reader<TS...> r)
+  bool read_and_test(reader<TS...> r)
   {
-    return ptr_->match(reader<tag::poly>(r));
+    return ptr_->read_and_test(r);
   }
 
 private:

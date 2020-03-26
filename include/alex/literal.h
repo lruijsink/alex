@@ -15,7 +15,7 @@ public:
   grammar(char c) : c_(c) {}
 
   template<class... TS>
-  bool match(reader<TS...> r) const
+  bool read_and_test(reader<TS...> r) const
   {
     return r.get() == c_;
   }
@@ -31,7 +31,7 @@ public:
   grammar(std::string s) : s_(s) {}
 
   template<class... TS>
-  bool match(reader<TS...> r) const
+  bool read_and_test(reader<TS...> r) const
   {
     for (auto c : s_)
       if (c != r.get())
@@ -50,9 +50,9 @@ public:
   grammar(const char* s) : s_(s) {}
 
   template<class... TS>
-  bool match(reader<TS...> r) const
+  bool read_and_test(reader<TS...> r) const
   {
-    return s_.match(r);
+    return s_.read_and_test(r);
   }
 
 private:

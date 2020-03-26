@@ -15,17 +15,11 @@ public:
   grammar(T, TS...) = delete;
 };
 
-template<>
-class grammar<tag::poly>;
-
 template<class T, class... TS>
 class reader
 {
   reader(T, TS...) = delete;
 };
-
-template<>
-class reader<tag::poly>;
 
 
 ALEX_NAMESPACE_END
