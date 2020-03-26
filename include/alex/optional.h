@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class... GrammarTS>
@@ -16,4 +16,4 @@ auto optional(GrammarTS... gs)
 }
 
 
-ALEX_NAMESPACE_END
+}

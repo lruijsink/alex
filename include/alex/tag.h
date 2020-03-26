@@ -2,7 +2,7 @@
 
 #include "defines.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 namespace tag
@@ -12,4 +12,4 @@ namespace tag
 }
 
 
-ALEX_NAMESPACE_END
+}

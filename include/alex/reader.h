@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class StreamT>
@@ -49,4 +49,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}

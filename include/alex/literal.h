@@ -5,7 +5,7 @@
 #include "grammar.h"
 #include "reader.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<>
@@ -60,4 +60,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}

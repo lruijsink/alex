@@ -9,7 +9,7 @@
 #include "grammar.h"
 #include "grammar_abstract.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 class reader_abstract
@@ -103,4 +103,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}

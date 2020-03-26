@@ -1,11 +1,10 @@
 #pragma once
 
-#define ALEX_NAMESPACE_BEGIN namespace alex {
-#define ALEX_NAMESPACE_END }
+#define ALEX_NAMESPACE_NAME alex
 
 #include "tag.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class T, class... TS>
@@ -22,4 +21,4 @@ class reader
 };
 
 
-ALEX_NAMESPACE_END
+}

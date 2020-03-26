@@ -5,7 +5,7 @@
 #include "defines.h"
 #include "parser.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class SourceT, class GrammarT>
@@ -27,4 +27,4 @@ auto match(const char (&str)[N], GrammarT g)
 }
 
 
-ALEX_NAMESPACE_END
+}

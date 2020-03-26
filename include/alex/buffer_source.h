@@ -4,7 +4,7 @@
 #include <string> // std::char_traits
 #include "defines.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class ViewT>
@@ -72,4 +72,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}

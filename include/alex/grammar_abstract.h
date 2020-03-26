@@ -5,7 +5,7 @@
 #include "grammar.h"
 #include "reader_abstract.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 struct grammar_abstract
@@ -103,4 +103,4 @@ private:
 
 
 
-ALEX_NAMESPACE_END
+}

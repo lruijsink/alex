@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class... GrammarTS>
@@ -28,4 +28,4 @@ template<class T>
 auto operator||(grammar<T>, bool) = delete;
 
 
-ALEX_NAMESPACE_END
+}

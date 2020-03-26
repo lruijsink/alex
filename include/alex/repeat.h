@@ -4,7 +4,7 @@
 #include "grammar.h"
 #include "fixed.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 namespace tag
@@ -149,4 +149,4 @@ auto repeat(T g)
 }
 
 
-ALEX_NAMESPACE_END
+}

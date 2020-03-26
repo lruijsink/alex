@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class... TS>
@@ -16,4 +16,4 @@ inline auto any_but(TS... cs)
 }
 
 
-ALEX_NAMESPACE_END
+}

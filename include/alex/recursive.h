@@ -5,7 +5,7 @@
 #include "grammar_abstract.h"
 #include "tag.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<>
@@ -48,4 +48,4 @@ inline auto recursive()
 }
 
 
-ALEX_NAMESPACE_END
+}

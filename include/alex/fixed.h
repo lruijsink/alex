@@ -5,7 +5,7 @@
 #include "defines.h"
 #include "grammar.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<>
@@ -29,4 +29,4 @@ struct grammar<std::false_type>
 };
 
 
-ALEX_NAMESPACE_END
+}

@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "buffer_source.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class SourceT>
@@ -53,4 +53,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}

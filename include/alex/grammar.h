@@ -5,7 +5,7 @@
 #include "reader.h"
 #include "reader_abstract.h"
 
-ALEX_NAMESPACE_BEGIN
+namespace ALEX_NAMESPACE_NAME {
 
 
 template<class T>
@@ -28,4 +28,4 @@ private:
 };
 
 
-ALEX_NAMESPACE_END
+}
