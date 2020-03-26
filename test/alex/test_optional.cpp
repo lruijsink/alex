@@ -1,10 +1,5 @@
 #include "gtest/gtest.h"
-
-#include "alex/parse.h"
-#include "alex/literal.h"
-#include "alex/eof.h"
-
-#include "alex/optional.h"
+#include "alex/alex.h"
 
 TEST(basic, always_matches)
 {

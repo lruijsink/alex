@@ -1,12 +1,5 @@
-#include <string>
-
 #include "gtest/gtest.h"
-
-#include "alex/parse.h"
-#include "alex/grammar.h"
-#include "alex/literal.h"
-
-#include "alex/grammar_abstract.h"
+#include "alex/alex.h"
 
 template<class T>
 auto counted(int* counter, T g)

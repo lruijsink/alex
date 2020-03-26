@@ -1,6 +1,6 @@
 #include <string_view>
 #include "gtest/gtest.h"
-#include "alex/stream_range.h"
+#include "alex/alex.h"
 
 TEST(basic, get_reads_back_then_eof)
 {

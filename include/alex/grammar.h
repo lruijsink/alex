@@ -2,7 +2,6 @@
 
 #include <type_traits>
 #include "defines.h"
-#include "tag.h"
 #include "reader.h"
 #include "reader_abstract.h"
 
@@ -27,34 +26,6 @@ private:
 
   std::enable_if_t<is_fnc, T> fnc_;
 };
-
-template<class L, class R>
-auto operator+(L lhs, R rhs)
-{
-  return grammar([=] (auto r) {
-    return r.parse(grammar(lhs)) && r.parse(grammar(rhs));
-  });
-}
-
-template<class L, class R>
-auto operator||(L lhs, R rhs)
-{
-  return grammar([=] (auto r) {
-    return r.parse(grammar(lhs)) || r.parse(grammar(rhs));
-  });
-}
-
-template<class T>
-auto operator||(bool, grammar<T>) = delete;
-
-template<class T>
-auto operator||(grammar<T>, bool) = delete;
-
-template<class T>
-auto operator+(bool, grammar<T>) = delete;
-
-template<class T>
-auto operator+(grammar<T>, bool) = delete;
 
 
 ALEX_NAMESPACE_END

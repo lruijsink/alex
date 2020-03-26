@@ -7,8 +7,8 @@ int main()
 {
   auto ws             = repeat(one_of(' ', '\t', '\n', 'r'));
 
-  auto digits         = repeat(from('0').to('9'));
-  auto int_num        = '0' || (from('1').to('9') + digits);
+  auto digits         = repeat(from_to('0', '9'));
+  auto int_num        = '0' || (from_to('1', '9') + digits);
   auto float_num      = int_num + optional('.' + digits);
   auto power          = one_of('e', 'E') + optional('+', '-') + digits;
   auto number         = optional('-') + float_num + optional(power);

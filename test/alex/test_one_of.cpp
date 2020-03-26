@@ -1,10 +1,5 @@
 #include "gtest/gtest.h"
-
-#include "alex/parse.h"
-#include "alex/literal.h"
-#include "alex/eof.h"
-
-#include "alex/one_of.h"
+#include "alex/alex.h"
 
 template<class T>
 auto counted(int* counter, T g)

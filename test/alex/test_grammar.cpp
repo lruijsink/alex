@@ -1,11 +1,5 @@
 #include "gtest/gtest.h"
-
-#include "alex/any.h"
-#include "alex/eof.h"
-#include "alex/literal.h"
-#include "alex/parse.h"
-
-#include "alex/grammar.h"
+#include "alex/alex.h"
 
 auto true_g = alex::grammar([] (auto r) {
   return true;

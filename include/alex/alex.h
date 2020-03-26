@@ -18,6 +18,7 @@
 #include "reader_abstract.h"
 #include "recursive.h"
 #include "repeat.h"
+#include "seq.h"
 #include "stream.h"
 #include "stream_buffer.h"
 #include "stream_forker.h"

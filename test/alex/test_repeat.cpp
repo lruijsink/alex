@@ -1,12 +1,5 @@
 #include "gtest/gtest.h"
-
-#include "alex/any.h"
-#include "alex/eof.h"
-#include "alex/from_to.h"
-#include "alex/literal.h"
-#include "alex/parse.h"
-
-#include "alex/repeat.h"
+#include "alex/alex.h"
 
 TEST(defaults, correct_constexprs)
 {
@@ -297,7 +290,7 @@ TEST(separator, with_count)
 
 TEST(combined, floating_point)
 {
-  auto num = alex::from('0').to('9');
+  auto num = alex::from_to('0', '9');
   auto g = alex::repeat(num).until('.').min(1) + alex::repeat(num).min(1);
 
   EXPECT_FALSE(alex::match(".0",      g + alex::eof()));
