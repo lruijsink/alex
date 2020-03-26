@@ -1,12 +1,13 @@
 #include <string_view>
 #include "gtest/gtest.h"
-#include "alex/alex.h"
+#include "alex/buffer_source.h"
+#include "alex/buffer_stream.h"
+
+auto source = alex::buffer_source<char[5]>("1234");
 
 TEST(basic, get_reads_back_then_eof)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
   EXPECT_EQ(stream.get(), '2');
@@ -17,17 +18,15 @@ TEST(basic, get_reads_back_then_eof)
 
 TEST(combos, fork_join)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.join();
+  stream.join(f1);
 
   EXPECT_EQ(stream.get(), '3');
   EXPECT_EQ(stream.get(), '4');
@@ -36,17 +35,15 @@ TEST(combos, fork_join)
 
 TEST(combos, fork_reset)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.reset();
+  stream.reset(f1);
 
   EXPECT_EQ(stream.get(), '2');
   EXPECT_EQ(stream.get(), '3');
@@ -56,50 +53,46 @@ TEST(combos, fork_reset)
 
 TEST(combos, fork_join_fork_join)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.join();
+  stream.join(f1);
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '4');
 
-  stream.join();
+  stream.join(f2);
 
   EXPECT_TRUE(stream.eof());
 }
 
 TEST(combos, fork_reset_fork_reset)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.reset();
+  stream.reset(f1);
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.reset();
+  stream.reset(f2);
 
   EXPECT_EQ(stream.get(), '3');
   EXPECT_EQ(stream.get(), '4');
@@ -108,50 +101,46 @@ TEST(combos, fork_reset_fork_reset)
 
 TEST(combos, fork_fork_join_join)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.join();
+  stream.join(f2);
 
   EXPECT_EQ(stream.get(), '4');
   
-  stream.join();
+  stream.join(f1);
 
   EXPECT_TRUE(stream.eof());
 }
 
 TEST(combos, fork_fork_reset_join)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.reset();
+  stream.reset(f2);
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.join();
+  stream.join(f1);
 
   EXPECT_EQ(stream.get(), '4');
   EXPECT_TRUE(stream.eof());
@@ -159,26 +148,24 @@ TEST(combos, fork_fork_reset_join)
 
 TEST(combos, fork_fork_join_reset)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.join();
+  stream.join(f2);
 
   EXPECT_EQ(stream.get(), '4');
   EXPECT_TRUE(stream.eof());
 
-  stream.reset();
+  stream.reset(f1);
 
   EXPECT_EQ(stream.get(), '2');
   EXPECT_EQ(stream.get(), '3');
@@ -188,27 +175,25 @@ TEST(combos, fork_fork_join_reset)
 
 TEST(combos, fork_fork_reset_reset)
 {
-  auto source_range = std::string_view("1234");
-  auto source_stream = alex::stream_range(source_range);
-  auto stream = alex::stream_forker(source_stream);
+  auto stream = alex::buffer_stream(source);
 
   EXPECT_EQ(stream.get(), '1');
 
-  stream.fork();
+  auto f1 = stream.fork();
 
   EXPECT_EQ(stream.get(), '2');
 
-  stream.fork();
+  auto f2 = stream.fork();
 
   EXPECT_EQ(stream.get(), '3');
 
-  stream.reset();
+  stream.reset(f2);
 
   EXPECT_EQ(stream.get(), '3');
   EXPECT_EQ(stream.get(), '4');
   EXPECT_TRUE(stream.eof());
 
-  stream.reset();
+  stream.reset(f1);
 
   EXPECT_EQ(stream.get(), '2');
   EXPECT_EQ(stream.get(), '3');

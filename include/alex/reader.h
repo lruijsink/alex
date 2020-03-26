@@ -2,7 +2,6 @@
 
 #include "defines.h"
 #include "grammar.h"
-#include "tag.h"
 
 ALEX_NAMESPACE_BEGIN
 
@@ -34,13 +33,13 @@ public:
   template<class... TS>
   auto parse(grammar<TS...> g)
   {
-    stream_.fork();
+    auto fork_point = stream_.fork();
     auto matches = g.read_and_test(*this);
 
     if (matches)
-      stream_.join();
+      stream_.join(fork_point);
     else
-      stream_.reset();
+      stream_.reset(fork_point);
 
     return matches;
   }

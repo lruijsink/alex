@@ -8,16 +8,15 @@
 ALEX_NAMESPACE_BEGIN
 
 
-template<class SourceT>
+template<class StreamT>
 class parser
 {
 public:
-  using source_type = SourceT;
-  using stream_type = stream<source_type>;
+  using stream_type = StreamT;
   using char_type   = typename stream_type::char_type;
 
-  parser(source_type& source)
-    : stream_(source)
+  parser(stream_type stream)
+    : stream_(stream)
   {
   }
 
@@ -27,7 +26,7 @@ public:
   template<class... TS>
   bool match(grammar<TS...> g)
   {
-    return reader<decltype(stream_)>(stream_).parse(g);
+    return reader<stream_type>(stream_).parse(g);
   }
 
 private:

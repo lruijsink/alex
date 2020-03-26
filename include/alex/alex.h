@@ -4,6 +4,8 @@
 
 #include "any.h"
 #include "any_but.h"
+#include "buffer_source.h"
+#include "buffer_stream.h"
 #include "eof.h"
 #include "fixed.h"
 #include "from_to.h"
@@ -19,9 +21,4 @@
 #include "recursive.h"
 #include "repeat.h"
 #include "seq.h"
-#include "stream.h"
-#include "stream_buffer.h"
-#include "stream_forker.h"
-#include "stream_range.h"
-#include "stream_traits.h"
 #include "tag.h"
