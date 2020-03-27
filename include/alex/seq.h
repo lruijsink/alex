@@ -11,7 +11,7 @@ auto seq(TS... gs)
 {
   return grammar([=] (auto r)
   {
-    return (... && r.parse(grammar(gs)));
+    return (r.parse(grammar(gs)) && ...);
   });
 }
 

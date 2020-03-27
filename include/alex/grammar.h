@@ -21,8 +21,8 @@ public:
   }
 
 private:
-  static constexpr bool is_fnc =
-    std::is_invocable_v<T, reader<tag::poly>>;
+  static constexpr bool is_fnc = true;
+  //  std::is_invocable_v<T, reader<tag::poly>>;
 
   std::enable_if_t<is_fnc, T> fnc_;
 };

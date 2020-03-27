@@ -26,6 +26,9 @@ public:
   virtual int_type get() = 0;
   virtual bool eof() const = 0;
   virtual bool parse(const grammar<tag::poly>& g) = 0;
+  virtual void begin_symbol(std::string) = 0;
+  virtual void commit_symbol() = 0;
+  virtual void discard_symbol() = 0;
   virtual std::unique_ptr<reader_abstract> clone() const = 0;
 };
 
@@ -52,6 +55,21 @@ public:
   bool parse(const grammar<tag::poly>& g) override
   {
     return reader_.parse(g);
+  }
+
+  void begin_symbol(std::string name) override
+  {
+    reader_.begin_symbol(name);
+  }
+
+  void commit_symbol() override
+  {
+    reader_.commit_symbol();
+  }
+
+  void discard_symbol() override
+  {
+    reader_.discard_symbol();
   }
 
   std::unique_ptr<reader_abstract> clone() const override
@@ -90,6 +108,21 @@ public:
   bool eof() const
   {
     return ptr_->eof();
+  }
+
+  void begin_symbol(std::string name)
+  {
+    ptr_->begin_symbol(name);
+  }
+
+  void commit_symbol()
+  {
+    ptr_->commit_symbol();
+  }
+
+  void discard_symbol()
+  {
+    ptr_->discard_symbol();
   }
 
   template<class... TS>
