@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "grammar.h"
 #include "grammar_abstract.h"
+#include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME {
 

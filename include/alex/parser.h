@@ -2,7 +2,6 @@
 
 #include <string_view>
 #include "defines.h"
-
 #include "grammar.h"
 #include "reader.h"
 #include "symbol_tree.h"

@@ -2,7 +2,6 @@
 
 #include "defines.h"
 #include "grammar.h"
-#include "fixed.h"
 
 namespace ALEX_NAMESPACE_NAME {
 

@@ -26,7 +26,6 @@ endfunction()
 
 unit_test("any")
 unit_test("any_but")
-unit_test("empty")
 unit_test("eof")
 unit_test("from_to")
 unit_test("grammar")

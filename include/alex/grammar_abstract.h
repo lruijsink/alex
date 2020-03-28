@@ -3,6 +3,7 @@
 #include <memory>
 #include "defines.h"
 #include "grammar.h"
+#include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
@@ -20,7 +21,7 @@ namespace detail
     {
     }
 
-    virtual bool read_and_test(::alex::reader&) = 0;
+    virtual bool read_and_test(::ALEX_NAMESPACE_NAME::reader&) = 0;
     virtual std::unique_ptr<grammar_abstract> clone() const = 0;
   };
 
@@ -28,9 +29,9 @@ namespace detail
   class grammar_impl : public grammar_abstract
   {
   public:
-    grammar_impl(::alex::grammar<TS...> g) : g_(g) {}
+    grammar_impl(::ALEX_NAMESPACE_NAME::grammar<TS...> g) : g_(g) {}
 
-    bool read_and_test(::alex::reader& r) override
+    bool read_and_test(::ALEX_NAMESPACE_NAME::reader& r) override
     {
       return g_.read_and_test(r);
     }
@@ -41,7 +42,7 @@ namespace detail
     }
 
   private:
-    ::alex::grammar<TS...> g_;
+    ::ALEX_NAMESPACE_NAME::grammar<TS...> g_;
   };
 }
 
