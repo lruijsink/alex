@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
 #include "defines.h"
+#include "grammar.h"
+#include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
@@ -26,10 +29,12 @@ public:
   template<class... R_TS>
   bool read_and_test(reader<R_TS...> r)
   {
-    r.begin_symbol(name_);
+    auto begin = r.pos();
+    auto& symb = r.begin_symbol(name_);
     if (r.parse(g_))
     {
       r.commit_symbol();
+      symb.set_content(r.view(begin, r.pos()));
       return true;
     }
     else

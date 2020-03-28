@@ -18,10 +18,9 @@ public:
   {
   }
 
-  symbol_tree(std::string name, symbol_tree* parent, const char* content_begin)
+  symbol_tree(std::string name, symbol_tree* parent)
     : name_(name)
     , parent_(parent)
-    , content_begin_(content_begin)
   {
   }
 
@@ -32,8 +31,7 @@ public:
 
   auto content() const
   {
-    auto length = content_end_ - content_begin_;
-    return std::string_view(content_begin_, length);
+    return content_;
   }
 
   auto& parent() const
@@ -46,9 +44,9 @@ public:
     return leaves_;
   }
 
-  auto& emplace_back(std::string name, const char* content_begin)
+  auto& emplace_back(std::string name)
   {
-    return leaves_.emplace_back(name, this, content_begin);
+    return leaves_.emplace_back(name, this);
   }
 
   auto pop_back()
@@ -56,16 +54,15 @@ public:
     leaves_.pop_back();
   }
 
-  auto set_content_end(const char* content_end)
+  auto set_content(std::string_view content)
   {
-    content_end_ = content_end;
+    content_ = content;
   }
 
 private:
   std::string name_;
   symbol_tree* parent_;
-  const char* content_begin_;
-  const char* content_end_;
+  std::string_view content_;
   std::vector<symbol_tree> leaves_;
 };
 

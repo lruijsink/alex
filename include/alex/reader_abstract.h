@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <memory>
 #include "defines.h"
@@ -8,6 +9,7 @@
 #include "reader.h"
 #include "grammar.h"
 #include "grammar_abstract.h"
+#include "symbol_tree.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
@@ -25,8 +27,10 @@ public:
 
   virtual int_type get() = 0;
   virtual bool eof() const = 0;
-  virtual bool parse(const grammar<tag::poly>& g) = 0;
-  virtual void begin_symbol(std::string) = 0;
+  virtual bool parse(const grammar<tag::poly>&) = 0;
+  virtual size_t pos() const = 0;
+  virtual std::string_view view(size_t, size_t) const = 0;
+  virtual symbol_tree& begin_symbol(std::string) = 0;
   virtual void commit_symbol() = 0;
   virtual void discard_symbol() = 0;
   virtual std::unique_ptr<reader_abstract> clone() const = 0;
@@ -52,14 +56,24 @@ public:
     return reader_.eof();
   }
 
+  size_t pos() const override
+  {
+    return reader_.pos();
+  }
+
+  std::string_view view(size_t begin, size_t end) const override
+  {
+    return reader_.view(begin, end);
+  }
+
   bool parse(const grammar<tag::poly>& g) override
   {
     return reader_.parse(g);
   }
 
-  void begin_symbol(std::string name) override
+  symbol_tree& begin_symbol(std::string name) override
   {
-    reader_.begin_symbol(name);
+    return reader_.begin_symbol(name);
   }
 
   void commit_symbol() override
@@ -110,9 +124,19 @@ public:
     return ptr_->eof();
   }
 
-  void begin_symbol(std::string name)
+  size_t pos() const
   {
-    ptr_->begin_symbol(name);
+    return ptr_->pos();
+  }
+
+  std::string_view view(size_t begin, size_t end) const
+  {
+    return ptr_->view(begin, end);
+  }
+
+  symbol_tree& begin_symbol(std::string name)
+  {
+    return ptr_->begin_symbol(name);
   }
 
   void commit_symbol()

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <string_view>
 #include "defines.h"
 #include "grammar.h"
 #include "symbol_tree.h"
@@ -32,14 +34,24 @@ public:
     return stream_.eof();
   }
 
-  auto begin_symbol(std::string name)
+  auto pos() const
   {
-    symbol_tree_it_ = &(symbol_tree_it_->emplace_back(name, stream_.pos()));
+    return stream_.pos();
+  }
+
+  auto view(size_t begin, size_t end) const
+  {
+    return stream_.view(begin, end);
+  }
+
+  auto& begin_symbol(std::string name)
+  {
+    symbol_tree_it_ = &(symbol_tree_it_->emplace_back(name));
+    return *symbol_tree_it_;
   }
 
   auto commit_symbol()
   {
-    symbol_tree_it_->set_content_end(stream_.pos());
     symbol_tree_it_ = &(symbol_tree_it_->parent());
   }
 

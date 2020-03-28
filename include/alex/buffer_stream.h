@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string_view>
 #include "defines.h"
 #include "buffer_source.h"
 
@@ -18,7 +19,8 @@ public:
   using iterator    = typename source_type::iterator;
 
   buffer_stream(source_type b)
-    : it_(b.begin())
+    : begin_(b.begin())
+    , it_(b.begin())
     , eof_(b.end())
   {
   }
@@ -28,14 +30,19 @@ public:
     return it_ != eof_ ? *(it_++) : traits_type::eof();
   }
 
-  auto eof()
+  auto eof() const
   {
     return it_ == eof_;
   }
 
-  auto pos()
+  auto pos() const -> size_t
   {
-    return it_;
+    return it_ - begin_;
+  }
+
+  auto view(size_t begin, size_t end) const
+  {
+    return std::string_view(begin_ + begin, end - begin);
   }
 
   auto fork()
@@ -53,6 +60,7 @@ public:
   }
 
 private:
+  iterator begin_;
   iterator it_;
   iterator eof_;
 };
