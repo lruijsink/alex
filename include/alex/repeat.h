@@ -12,7 +12,7 @@ auto repeat(T g)
   auto G = grammar(g);
   return grammar([=] (auto& r)
   {
-    while (r.parse(G))
+    while (r.match(G))
     {
     }
 
@@ -27,10 +27,10 @@ auto repeat(T g, S s)
   auto S_G = grammar(s) + G;
   return grammar([=] (auto& r)
   {
-    if (!r.parse(G))
+    if (!r.match(G))
       return true;
     
-    while (r.parse(S_G))
+    while (r.match(S_G))
     {
     }
     

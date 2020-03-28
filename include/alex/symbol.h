@@ -36,7 +36,7 @@ public:
   {
     auto begin = r.pos();
     auto& symb = r.begin_symbol(name_);
-    if (r.parse(g_))
+    if (r.match(g_))
     {
       r.commit_symbol();
       symb.set_content(r.view(begin, r.pos()));

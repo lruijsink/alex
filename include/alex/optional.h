@@ -6,12 +6,14 @@
 namespace ALEX_NAMESPACE_NAME {
 
 
-template<class... GrammarTS>
-auto optional(GrammarTS... gs)
+template<class T>
+auto optional(T g)
 {
+  auto G = grammar(g);
   return grammar([=] (auto& r)
   {
-    return (... || r.parse(grammar(gs))) || true;
+    r.match(G);
+    return true;
   });
 }
 

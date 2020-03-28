@@ -12,23 +12,21 @@ namespace ALEX_NAMESPACE_NAME {
 class reader
 {
 public:
-  using source_type = std::string_view;
-  using traits_type = typename source_type::traits_type;
-  using char_type   = typename traits_type::char_type;
-  using int_type    = typename traits_type::int_type;
-
-  reader(source_type source, symbol_tree* tree)
+  reader(std::string_view source)
     : source_(source)
     , read_it_(source.begin())
-    , symbol_tree_it_(tree)
+    , tree_()
+    , symbol_tree_it_(&tree_)
   {
   }
 
-  auto get() -> int_type
+  reader(const reader&) = delete;
+
+  auto get() -> int
   {
     return read_it_ != source_.end()
          ? *(read_it_++)
-         : traits_type::eof();
+         : std::char_traits<char>::eof();
   }
 
   auto eof() const
@@ -64,7 +62,7 @@ public:
   }
 
   template<class... TS>
-  auto parse(grammar<TS...> g)
+  auto match(grammar<TS...> g)
   {
     auto fork_point = read_it_;
     auto matches = g.read_and_test(*this);
@@ -75,9 +73,15 @@ public:
     return matches;
   }
 
+  auto tree()
+  {
+    return tree_;
+  }
+
 private:
-  source_type source_;
-  source_type::iterator read_it_;
+  std::string_view source_;
+  std::string_view::iterator read_it_;
+  symbol_tree tree_;
   symbol_tree* symbol_tree_it_;
 };
 

@@ -20,7 +20,7 @@ int main()
   auto digits      = repeat(from_to('0', '9'));
   auto int_num     = '0' || (from_to('1', '9') + digits);
   auto float_num   = int_num + optional('.' + digits);
-  auto power       = one_of('e', 'E') + optional('+', '-') + digits;
+  auto power       = one_of('e', 'E') + optional(one_of('+', '-')) + digits;
                    
   auto object      = recursive();
   auto array       = recursive();
@@ -40,5 +40,5 @@ int main()
 
   auto json        = expression;
 
-  print_tree(parse("{\"foo\": \"bar\", \"fi\":[\"ga\", [\"r\", 0.0]]}", json));
+  print_tree(parser().parse("{\"foo\": \"bar\", \"fi\":[\"ga\", [\"r\", 0.0]]}", json).value());
 }

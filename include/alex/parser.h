@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string_view>
+#include <optional>
 #include "defines.h"
 #include "grammar.h"
 #include "reader.h"
-#include "symbol_tree.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
@@ -12,31 +12,21 @@ namespace ALEX_NAMESPACE_NAME {
 class parser
 {
 public:
-  parser(std::string_view source)
-    : source_(source)
+  template<class T>
+  auto match(std::string_view s, T g)
   {
+    return reader(s).match(grammar(g));
   }
 
-  parser(const parser&) = delete;
-  parser(parser&&) = delete;
-
-  template<class... TS>
-  bool match(grammar<TS...> g)
+  template<class T>
+  auto parse(std::string_view s, T g) -> std::optional<symbol_tree>
   {
-    auto smt = symbol_tree();
-    return reader(source_, &smt).parse(g);
-  }
+    auto r = reader(s);
+    if (!r.match(g))
+      return std::nullopt;
 
-  template<class... TS>
-  auto parse(grammar<TS...> g)
-  {
-    auto smt = symbol_tree();
-    reader(source_, &smt).parse(g);
-    return smt;
+    return r.tree();
   }
-
-private:
-  std::string_view source_;
 };
 
 

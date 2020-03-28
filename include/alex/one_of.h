@@ -11,7 +11,7 @@ auto one_of(GrammarTS... gs)
 {
   return grammar([=] (auto& r)
   {
-    return (... || r.parse(grammar(gs)));
+    return (... || r.match(grammar(gs)));
   });
 }
 

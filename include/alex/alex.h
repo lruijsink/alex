@@ -10,7 +10,6 @@
 #include "literal.h"
 #include "one_of.h"
 #include "optional.h"
-#include "parse.h"
 #include "parser.h"
 #include "poly.h"
 #include "reader.h"
