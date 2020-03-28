@@ -32,7 +32,7 @@ public:
     g_ = g;
   }
 
-  bool read_and_test(reader& r)
+  bool read_and_test(reader& r) const
   {
     auto begin = r.pos();
     auto& symb = r.begin_symbol(name_);

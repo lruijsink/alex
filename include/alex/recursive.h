@@ -3,7 +3,7 @@
 #include <memory>
 #include "defines.h"
 #include "grammar.h"
-#include "grammar_abstract.h"
+#include "poly.h"
 #include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME {
@@ -41,7 +41,7 @@ public:
     return *this;
   }
 
-  bool read_and_test(reader& r)
+  bool read_and_test(reader& r) const
   {
     return ptr_->read_and_test(r);
   }
