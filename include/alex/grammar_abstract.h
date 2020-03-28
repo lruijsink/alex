@@ -1,9 +1,9 @@
 #pragma once
 
+#include <memory>
 #include "defines.h"
 #include "tag.h"
 #include "grammar.h"
-#include "reader_abstract.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
@@ -14,7 +14,7 @@ struct grammar_abstract
   {
   }
 
-  virtual bool read_and_test(const reader<tag::poly>&) = 0;
+  virtual bool read_and_test(reader&) = 0;
   virtual std::unique_ptr<grammar_abstract> clone() const = 0;
 };
 
@@ -24,7 +24,7 @@ class grammar_impl : public grammar_abstract
 public:
   grammar_impl(grammar<TS...> g) : g_(g) {}
 
-  bool read_and_test(const reader<tag::poly>& r) override
+  bool read_and_test(reader& r) override
   {
     return g_.read_and_test(r);
   }
@@ -91,8 +91,7 @@ public:
     return* this;
   }
 
-  template<class... TS>
-  bool read_and_test(reader<TS...> r)
+  bool read_and_test(reader& r)
   {
     return ptr_->read_and_test(r);
   }

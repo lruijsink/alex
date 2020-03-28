@@ -8,7 +8,7 @@ namespace ALEX_NAMESPACE_NAME {
 
 inline auto any()
 {
-  return grammar([=] (auto r)
+  return grammar([=] (auto& r)
   {
     if (r.eof())
       return false;

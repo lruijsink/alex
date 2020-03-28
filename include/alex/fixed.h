@@ -11,8 +11,7 @@ namespace ALEX_NAMESPACE_NAME {
 template<>
 struct grammar<std::true_type>
 {
-  template<class... TS>
-  bool read_and_test(reader<TS...>)
+  bool read_and_test(reader&)
   {
     return true;
   }
@@ -21,8 +20,7 @@ struct grammar<std::true_type>
 template<>
 struct grammar<std::false_type>
 {
-  template<class... TS>
-  bool read_and_test(reader<TS...>)
+  bool read_and_test(reader&)
   {
     return false;
   }

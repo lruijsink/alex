@@ -14,11 +14,5 @@ public:
   grammar(T, TS...) = delete;
 };
 
-template<class T, class... TS>
-class reader
-{
-  reader(T, TS...) = delete;
-};
-
 
 }

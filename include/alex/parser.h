@@ -1,24 +1,20 @@
 #pragma once
 
+#include <string_view>
 #include "defines.h"
 
 #include "grammar.h"
 #include "reader.h"
-#include "stream.h"
 #include "symbol_tree.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
 
-template<class StreamT>
 class parser
 {
 public:
-  using stream_type = StreamT;
-  using char_type   = typename stream_type::char_type;
-
-  parser(stream_type stream)
-    : stream_(stream)
+  parser(std::string_view source)
+    : source_(source)
   {
   }
 
@@ -29,19 +25,19 @@ public:
   bool match(grammar<TS...> g)
   {
     auto smt = symbol_tree();
-    return reader<stream_type>(stream_, &smt).parse(g);
+    return reader(source_, &smt).parse(g);
   }
 
   template<class... TS>
   auto parse(grammar<TS...> g)
   {
     auto smt = symbol_tree();
-    reader<stream_type>(stream_, &smt).parse(g);
+    reader(source_, &smt).parse(g);
     return smt;
   }
 
 private:
-  stream_type stream_;
+  std::string_view source_;
 };
 
 

@@ -9,7 +9,7 @@ namespace ALEX_NAMESPACE_NAME {
 template<class... GrammarTS>
 auto one_of(GrammarTS... gs)
 {
-  return grammar([=] (auto r)
+  return grammar([=] (auto& r)
   {
     return (... || r.parse(grammar(gs)));
   });

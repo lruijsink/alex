@@ -6,10 +6,9 @@
 namespace ALEX_NAMESPACE_NAME {
 
 
-template<class CharT>
-auto from_to(CharT from, CharT to)
+inline auto from_to(char from, char to)
 {
-  return grammar([=] (auto r) {
+  return grammar([=] (auto& r) {
     auto c = r.get();
     return from <= c && c <= to;
   });

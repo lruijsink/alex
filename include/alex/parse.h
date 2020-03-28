@@ -11,36 +11,28 @@ namespace ALEX_NAMESPACE_NAME {
 template<class SourceT, class GrammarT>
 auto match(SourceT str, GrammarT g)
 {
-  auto src = buffer_source(str);
-  auto srm = buffer_stream(src);
-  auto prs = parser(srm);
+  auto prs = parser(str);
   return prs.match(g);
 }
 
 template<class GrammarT, size_t N>
 auto match(const char (&str)[N], GrammarT g)
 {
-  auto src = buffer_source<char[N]>(str);
-  auto srm = buffer_stream(src);
-  auto prs = parser(srm);
+  auto prs = parser(str);
   return prs.match(g);
 }
 
 template<class SourceT, class GrammarT>
 auto parse(SourceT str, GrammarT g)
 {
-  auto src = buffer_source(str);
-  auto srm = buffer_stream(src);
-  auto prs = parser(srm);
+  auto prs = parser(str);
   return prs.parse(g);
 }
 
 template<class GrammarT, size_t N>
 auto parse(const char (&str)[N], GrammarT g)
 {
-  auto src = buffer_source<char[N]>(str);
-  auto srm = buffer_stream(src);
-  auto prs = parser(srm);
+  auto prs = parser(str);
   return prs.parse(g);
 }
 

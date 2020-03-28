@@ -32,8 +32,7 @@ public:
     return *this;
   }
 
-  template<class... TS>
-  bool read_and_test(reader<TS...> r)
+  bool read_and_test(reader& r)
   {
     return ptr_->read_and_test(r);
   }

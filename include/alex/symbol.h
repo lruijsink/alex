@@ -26,8 +26,7 @@ public:
     g_ = g;
   }
 
-  template<class... R_TS>
-  bool read_and_test(reader<R_TS...> r)
+  bool read_and_test(reader& r)
   {
     auto begin = r.pos();
     auto& symb = r.begin_symbol(name_);

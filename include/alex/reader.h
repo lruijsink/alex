@@ -9,39 +9,41 @@
 namespace ALEX_NAMESPACE_NAME {
 
 
-template<class StreamT>
-class reader<StreamT>
+class reader
 {
 public:
-  using stream_type = StreamT;
-  using traits_type = typename stream_type::traits_type;
+  using source_type = std::string_view;
+  using traits_type = typename source_type::traits_type;
   using char_type   = typename traits_type::char_type;
   using int_type    = typename traits_type::int_type;
 
-  reader(stream_type& stream, symbol_tree* tree)
-    : stream_(stream)
+  reader(source_type source, symbol_tree* tree)
+    : source_(source)
+    , read_it_(source.begin())
     , symbol_tree_it_(tree)
   {
   }
 
-  auto get()
+  auto get() -> int_type
   {
-    return stream_.get();
+    return read_it_ != source_.end()
+         ? *(read_it_++)
+         : traits_type::eof();
   }
 
   auto eof() const
   {
-    return stream_.eof();
+    return read_it_ == source_.end();
   }
 
-  auto pos() const
+  auto pos() -> size_t const
   {
-    return stream_.pos();
+    return read_it_ - source_.begin();
   }
 
-  auto view(size_t begin, size_t end) const
+  auto view(size_t from, size_t to) const
   {
-    return stream_.view(begin, end);
+    return source_.substr(from, to - from);
   }
 
   auto& begin_symbol(std::string name)
@@ -64,19 +66,18 @@ public:
   template<class... TS>
   auto parse(grammar<TS...> g)
   {
-    auto fork_point = stream_.fork();
+    auto fork_point = read_it_;
     auto matches = g.read_and_test(*this);
 
-    if (matches)
-      stream_.join(fork_point);
-    else
-      stream_.reset(fork_point);
+    if (!matches)
+      read_it_ = fork_point;
 
     return matches;
   }
 
 private:
-  stream_type& stream_;
+  source_type source_;
+  source_type::iterator read_it_;
   symbol_tree* symbol_tree_it_;
 };
 

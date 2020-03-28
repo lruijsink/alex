@@ -11,7 +11,7 @@ template<class T>
 auto repeat(T g)
 {
   auto G = grammar(g);
-  return grammar([=] (auto r)
+  return grammar([=] (auto& r)
   {
     while (r.parse(G))
     {
@@ -26,7 +26,7 @@ auto repeat(T g, S s)
 {
   auto G = grammar(g);
   auto S_G = grammar(s) + G;
-  return grammar([=] (auto r)
+  return grammar([=] (auto& r)
   {
     if (!r.parse(G))
       return true;
