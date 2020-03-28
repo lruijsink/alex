@@ -16,6 +16,5 @@ TEST(bounds, out_of_bounds)
 
 TEST(consumes, consumes_1)
 {
-  EXPECT_TRUE (alex::parser().match("11", alex::from_to('1', '3') + '1' + alex::eof()));
-  EXPECT_FALSE(alex::parser().match("1",  alex::from_to('1', '3') + '1'));
+  EXPECT_TRUE (alex::parser().match("11", alex::from_to('1', '3') + '1'));
 }

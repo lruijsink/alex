@@ -6,11 +6,6 @@ TEST(single, matches)
   EXPECT_TRUE(alex::parser().match("a", alex::any()));
 }
 
-TEST(single, consumes)
-{
-  EXPECT_TRUE(alex::parser().match("a", alex::any() + alex::eof()));
-}
-
 TEST(single, is_not_eof)
 {
   EXPECT_FALSE(alex::parser().match("", alex::any()));

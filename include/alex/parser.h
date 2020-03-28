@@ -15,7 +15,7 @@ public:
   template<class T>
   auto match(std::string_view s, T g)
   {
-    return detail::reader(s).match(grammar(g));
+    return detail::reader(s).match(grammar(g) + eof());
   }
 
   template<class T>
