@@ -35,8 +35,8 @@ int main()
   auto expression  = object || array || number || text || keyword;
   
   auto field       = symbol("field",  text + op(':') + expression);
-       object      = symbol("object", op('{') + repeat(field).separator(op(',')) + op('}'));
-       array       = symbol("array",  op('[') + repeat(expression).separator(op(',')) + op(']'));
+       object      = symbol("object", op('{') + repeat(field, op(',')) + op('}'));
+       array       = symbol("array",  op('[') + repeat(expression, op(',')) + op(']'));
 
   auto json        = expression;
 
