@@ -41,7 +41,7 @@ public:
     return *this;
   }
 
-  bool read_and_test(reader& r) const
+  bool read_and_test(detail::reader& r) const
   {
     return ptr_->read_and_test(r);
   }

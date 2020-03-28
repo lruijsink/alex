@@ -15,13 +15,13 @@ public:
   template<class T>
   auto match(std::string_view s, T g)
   {
-    return reader(s).match(grammar(g));
+    return detail::reader(s).match(grammar(g));
   }
 
   template<class T>
   auto parse(std::string_view s, T g) -> std::optional<symbol_tree>
   {
-    auto r = reader(s);
+    auto r = detail::reader(s);
     if (!r.match(g))
       return std::nullopt;
 

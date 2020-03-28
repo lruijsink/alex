@@ -7,6 +7,7 @@
 #include "symbol_tree.h"
 
 namespace ALEX_NAMESPACE_NAME {
+namespace detail {
 
 
 class reader
@@ -25,8 +26,8 @@ public:
   auto get() -> int
   {
     return read_it_ != source_.end()
-         ? *(read_it_++)
-         : std::char_traits<char>::eof();
+      ? *(read_it_++)
+      : std::char_traits<char>::eof();
   }
 
   auto eof() const
@@ -62,7 +63,7 @@ public:
   }
 
   template<class... TS>
-  auto match(grammar<TS...> g)
+  auto match(::ALEX_NAMESPACE_NAME::grammar<TS...> g)
   {
     auto fork_point = read_it_;
     auto matches = g.read_and_test(*this);
@@ -81,9 +82,10 @@ public:
 private:
   std::string_view source_;
   std::string_view::iterator read_it_;
-  symbol_tree tree_;
-  symbol_tree* symbol_tree_it_;
+  ::ALEX_NAMESPACE_NAME::symbol_tree tree_;
+  ::ALEX_NAMESPACE_NAME::symbol_tree* symbol_tree_it_;
 };
 
 
+}
 }

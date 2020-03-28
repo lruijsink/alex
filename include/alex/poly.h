@@ -2,6 +2,7 @@
 
 #include <functional>
 #include "defines.h"
+#include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME
 {
@@ -20,23 +21,23 @@ class grammar<detail::tag::poly>
 {
 public:
   grammar()
-    : f_([=] (reader& r) { return false; })
+    : f_([=] (detail::reader& r) { return false; })
   {
   }
 
   template<class... TS>
   grammar(grammar<TS...> g)
-    : f_([=] (reader& r) { return g.read_and_test(r); })
+    : f_([=] (detail::reader& r) { return g.read_and_test(r); })
   {
   }
 
-  bool read_and_test(reader& r) const
+  bool read_and_test(detail::reader& r) const
   {
     return f_(r);
   }
 
 private:
-  std::function<bool(reader& r)> f_;
+  std::function<bool(detail::reader& r)> f_;
 };
 
 template<class T>
