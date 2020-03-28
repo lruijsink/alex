@@ -33,6 +33,11 @@ public:
     return it_ == eof_;
   }
 
+  auto pos()
+  {
+    return it_;
+  }
+
   auto fork()
   {
     return it_;
