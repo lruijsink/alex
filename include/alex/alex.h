@@ -20,4 +20,3 @@
 #include "seq.h"
 #include "symbol.h"
 #include "symbol_tree.h"
-#include "tag.h"

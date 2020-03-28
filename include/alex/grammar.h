@@ -2,10 +2,18 @@
 
 #include <type_traits>
 #include "defines.h"
-#include "reader.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
+
+class reader;
+
+template<class T, class... TS>
+class grammar
+{
+public:
+  grammar(T, TS...) = delete;
+};
 
 template<class T>
 class grammar<T>
@@ -19,9 +27,7 @@ public:
   }
 
 private:
-  static constexpr bool is_fnc = std::is_invocable_v<T, reader&>;
-
-  std::enable_if_t<is_fnc, T> fnc_;
+  T fnc_;
 };
 
 

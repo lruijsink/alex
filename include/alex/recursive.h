@@ -2,18 +2,26 @@
 
 #include <memory>
 #include "defines.h"
+#include "grammar.h"
 #include "grammar_abstract.h"
-#include "tag.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
 
+namespace detail
+{
+  namespace tag
+  {
+    struct recursive {};
+  }
+}
+
 template<>
-class grammar<tag::recursive>
+class grammar<detail::tag::recursive>
 {
 public:
   grammar()
-    : ptr_(std::make_shared<grammar<tag::poly>>())
+    : ptr_(std::make_shared<grammar<detail::tag::poly>>())
   {
   }
 
@@ -38,12 +46,12 @@ public:
   }
 
 private:
-  std::shared_ptr<grammar<tag::poly>> ptr_;
+  std::shared_ptr<grammar<detail::tag::poly>> ptr_;
 };
 
 inline auto recursive()
 {
-  return grammar<tag::recursive>();
+  return grammar<detail::tag::recursive>();
 }
 
 

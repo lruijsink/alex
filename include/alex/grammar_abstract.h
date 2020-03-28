@@ -2,62 +2,69 @@
 
 #include <memory>
 #include "defines.h"
-#include "tag.h"
 #include "grammar.h"
 
 namespace ALEX_NAMESPACE_NAME {
 
 
-struct grammar_abstract
+namespace detail
 {
-  virtual ~grammar_abstract()
+  namespace tag
   {
+    struct poly {};
   }
 
-  virtual bool read_and_test(reader&) = 0;
-  virtual std::unique_ptr<grammar_abstract> clone() const = 0;
-};
-
-template<class... TS>
-class grammar_impl : public grammar_abstract
-{
-public:
-  grammar_impl(grammar<TS...> g) : g_(g) {}
-
-  bool read_and_test(reader& r) override
+  struct grammar_abstract
   {
-    return g_.read_and_test(r);
-  }
+    virtual ~grammar_abstract()
+    {
+    }
 
-  std::unique_ptr<grammar_abstract> clone() const override
+    virtual bool read_and_test(::alex::reader&) = 0;
+    virtual std::unique_ptr<grammar_abstract> clone() const = 0;
+  };
+
+  template<class... TS>
+  class grammar_impl : public grammar_abstract
   {
-    return std::make_unique<grammar_impl>(g_);
-  }
+  public:
+    grammar_impl(::alex::grammar<TS...> g) : g_(g) {}
 
-private:
-  grammar<TS...> g_;
-};
+    bool read_and_test(::alex::reader& r) override
+    {
+      return g_.read_and_test(r);
+    }
+
+    std::unique_ptr<grammar_abstract> clone() const override
+    {
+      return std::make_unique<grammar_impl>(g_);
+    }
+
+  private:
+    ::alex::grammar<TS...> g_;
+  };
+}
 
 template<>
-class grammar<tag::poly>
+class grammar<detail::tag::poly>
 {
 public:
   grammar()
     : ptr_(nullptr) {}
 
-  grammar(const grammar<tag::poly>& g)
+  grammar(const grammar<detail::tag::poly>& g)
     : ptr_(g.ptr_->clone()) {}
 
-  grammar(const grammar_abstract& g)
+  grammar(const detail::grammar_abstract& g)
     : ptr_(g.clone()) {}
 
   template<class... TS>
-  grammar(grammar_impl<TS...> g)
+  grammar(detail::grammar_impl<TS...> g)
     : ptr_(g.clone()) {}
 
   template<class... TS>
   grammar(grammar<TS...> g)
-    : ptr_(new grammar_impl<TS...>(g)) {}
+    : ptr_(new detail::grammar_impl<TS...>(g)) {}
 
   template<class... TS>
   grammar(TS... vs)
@@ -66,26 +73,26 @@ public:
   template<class... TS>
   auto& operator=(const grammar<TS...>& g)
   {
-    ptr_ = std::make_unique<grammar_impl<TS...>>(g);
+    ptr_ = std::make_unique<detail::grammar_impl<TS...>>(g);
     return* this;
   }
 
   template<class... TS>
   auto& operator=(grammar<TS...>&& g)
   {
-    ptr_ = std::make_unique<grammar_impl<TS...>>(g);
+    ptr_ = std::make_unique<detail::grammar_impl<TS...>>(g);
     return* this;
   }
 
   template<class... TS>
-  auto& operator=(const grammar<tag::poly>& g)
+  auto& operator=(const grammar<detail::tag::poly>& g)
   {
     ptr_ = g.ptr_->clone();
     return* this;
   }
 
   template<class... TS>
-  auto& operator=(grammar<tag::poly>&& g)
+  auto& operator=(grammar<detail::tag::poly>&& g)
   {
     ptr_ = std::move(g.ptr_);
     return* this;
@@ -97,7 +104,7 @@ public:
   }
 
 private:
-  std::unique_ptr<grammar_abstract> ptr_;
+  std::unique_ptr<detail::grammar_abstract> ptr_;
 };
 
 

@@ -8,10 +8,16 @@
 namespace ALEX_NAMESPACE_NAME {
 
 
-struct symbol_tag {};
+namespace detail
+{
+  namespace tag
+  {
+    struct symbol {};
+  }
+}
 
 template<class... TS>
-class grammar<symbol_tag, grammar<TS...>>
+class grammar<detail::tag::symbol, grammar<TS...>>
 {
 public:
   grammar(std::string name, grammar<TS...> g)
@@ -51,7 +57,7 @@ private:
 template<class T>
 auto symbol(std::string name, T g)
 {
-  return grammar<symbol_tag, decltype(grammar(g))>(name, grammar(g));
+  return grammar<detail::tag::symbol, decltype(grammar(g))>(name, grammar(g));
 }
 
 
