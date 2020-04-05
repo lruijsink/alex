@@ -10,12 +10,7 @@ token alex::token_root<token>() {
   return 0;
 }
 
-using token_tree_builder
-  = alex::token_tree_builder<token, alex::token_tree_fixed_capacity>;
-
-using token_tree = token_tree_builder::tree_type;
-
-void print_tree(token_tree::node u, int d) {
+void print_tree(alex::token_tree<token>::node u, int d) {
   for (int i = 0; i < d; i++) std::cout << "  ";
 
   std::cout << u.data().token() << '\n';
@@ -24,7 +19,7 @@ void print_tree(token_tree::node u, int d) {
 }
 
 int main() {
-  auto T = token_tree_builder(20);
+  auto T = alex::token_tree_builder<token>();
   
   auto p1 = T.branch(1);
     auto p2 = T.branch(2);

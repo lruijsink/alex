@@ -24,8 +24,8 @@ public:
   using tree_type = typename underlying_type::tree_type;
 
   template<class... ForwardArgsTS>
-  token_tree_builder(ForwardArgsTS... args)
-    : underlying_(std::forward<ForwardArgsTS...>(args...))
+  token_tree_builder(ForwardArgsTS&&... args)
+    : underlying_(std::forward<ForwardArgsTS>(args)...)
     , root_marker_(
       underlying_.branch(token_data_type(token_root<token_type>()))
     ) {}
