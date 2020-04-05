@@ -1,6 +1,7 @@
 #pragma once
 
-#include "./token.h"
+#include "./token_data.h"
+#include "./token_root.h"
 #include "./token_tree.h"
 #include "./token_tree_builder.h"
 

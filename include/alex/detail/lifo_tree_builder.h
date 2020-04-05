@@ -16,26 +16,30 @@ public:
   using value_type = ValueType;
   using container_type = std::vector<lifo_tree_element<value_type>>;
   using tree_type = lifo_tree<container_type>;
+  using marker_type = size_t;
 
-  lifo_tree_builder() {
-    branch(0);
+  auto& get(marker_type index) {
+    return container_[index].value;
   }
 
-  auto branch(value_type value) {
+  const auto& get(marker_type index) const {
+    return container_[index].value;
+  }
+
+  auto branch(value_type value) -> marker_type {
     container_.emplace_back().value = value;
     return container_.size() - 1;
   }
 
-  void commit(size_t branch_index) {
-    container_[branch_index].next_index = container_.size();
+  void commit(marker_type index) {
+    container_[index].next_index = container_.size();
   }
 
-  void revert(size_t branch_index) {
-    container_.resize(branch_index);
+  void revert(marker_type index) {
+    container_.resize(index);
   }
 
   auto finish() {
-    commit(0);
     return tree_type(std::move(container_));
   }
 

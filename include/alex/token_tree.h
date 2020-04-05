@@ -5,7 +5,8 @@
 namespace alex {
 
 
-using token_tree = token_tree_builder::tree_type;
+template<class TokenType>
+using token_tree = typename token_tree_builder<TokenType>::tree_type;
 
 
 }
