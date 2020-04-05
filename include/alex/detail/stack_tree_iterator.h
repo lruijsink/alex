@@ -13,7 +13,7 @@ public:
     : container_(container), index_(index) {}
 
   auto operator*() const {
-    return stack_tree_node(container_, container_[index_].value);
+    return stack_tree_node(container_, index_);
   }
 
   auto operator++() {

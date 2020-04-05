@@ -5,9 +5,9 @@
 
 void print_tree(alex::token_tree::node u, int d) {
   for (int i = 0; i < d; i++) std::cout << "  ";
-  std::cout << u.token() << '\n';
 
-  for (auto v : u.children())
+  std::cout << u.token() << '\n';
+  for(auto v : u.children())
     print_tree(v, d + 1);
 }
 
@@ -26,7 +26,7 @@ int main() {
           T.commit(p6);
         T.commit(p5);
       T.commit(p2);
-    T.commit(p1);
+    T.revert(p1);
     auto p7 = T.branch(7);
       auto p8 = T.branch(8);
         auto p9 = T.branch(9);
