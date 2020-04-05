@@ -19,7 +19,9 @@ public:
   stack_tree_builder_fixed_capacity(size_t capacity)
     : container_(std::make_unique<stack_tree_element<value_type>[]>(capacity))
     , size_(0)
-    , capacity_(capacity) {}
+    , capacity_(capacity) {
+    branch(0);
+  }
 
   auto branch(value_type value) {
     container_[size_].value = value;
@@ -35,6 +37,7 @@ public:
   }
 
   auto finish() {
+    commit(0);
     return stack_tree_container(std::move(container_));
   }
 

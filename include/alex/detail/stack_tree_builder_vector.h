@@ -17,6 +17,10 @@ public:
   using underlying_type = std::vector<stack_tree_element<value_type>>;
   using finished_type = stack_tree_container<underlying_type>;
 
+  stack_tree_builder_vector() {
+    branch(0);
+  }
+
   auto branch(value_type value) {
     container_.emplace_back().value = value;
     return container_.size() - 1;
@@ -31,6 +35,7 @@ public:
   }
 
   auto finish() {
+    commit(0);
     return stack_tree_container(std::move(container_));
   }
 
