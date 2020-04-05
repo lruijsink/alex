@@ -2,10 +2,12 @@
 
 #include "./token.h"
 #include "./token_tree.h"
+#include "./token_tree_builder.h"
 
-#include "./detail/stack_tree_builder_vector.h"
-#include "./detail/stack_tree_container.h"
-#include "./detail/stack_tree_element.h"
-#include "./detail/stack_tree_iterator.h"
-#include "./detail/stack_tree_node.h"
-#include "./detail/tree_span.h"
+#include "./detail/iterator_range.h"
+#include "./detail/lifo_tree.h"
+#include "./detail/lifo_tree_builder.h"
+#include "./detail/lifo_tree_element.h"
+#include "./detail/lifo_tree_iterator.h"
+#include "./detail/lifo_tree_node.h"
+#include "./detail/lifo_tree_sentinel.h"

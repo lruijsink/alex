@@ -2,22 +2,22 @@
 
 #include <vector>
 
-#include "./stack_tree_container.h"
-#include "./stack_tree_element.h"
-#include "./stack_tree_node.h"
+#include "./lifo_tree.h"
+#include "./lifo_tree_element.h"
+#include "./lifo_tree_node.h"
 
 namespace alex {
 namespace detail {
 
 
 template<class ValueType>
-class stack_tree_builder_vector {
+class lifo_tree_builder {
 public:
   using value_type = ValueType;
-  using underlying_type = std::vector<stack_tree_element<value_type>>;
-  using finished_type = stack_tree_container<underlying_type>;
+  using container_type = std::vector<lifo_tree_element<value_type>>;
+  using tree_type = lifo_tree<container_type>;
 
-  stack_tree_builder_vector() {
+  lifo_tree_builder() {
     branch(0);
   }
 
@@ -27,7 +27,7 @@ public:
   }
 
   void commit(size_t branch_index) {
-    container_[branch_index].neighbour_index = container_.size();
+    container_[branch_index].next_index = container_.size();
   }
 
   void revert(size_t branch_index) {
@@ -36,11 +36,11 @@ public:
 
   auto finish() {
     commit(0);
-    return stack_tree_container(std::move(container_));
+    return tree_type(std::move(container_));
   }
 
 private:
-  underlying_type container_;
+  container_type container_;
 };
 
 

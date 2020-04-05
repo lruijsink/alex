@@ -3,8 +3,8 @@
 #include "alex/alex.h"
 #include "alext/alext.h"
 
-using token_tree_builder = alex::token_tree_builder_fixed_capacity;
-using token_tree = token_tree_builder::finished_type;
+using token_tree_builder = alex::fixed_capacity_token_tree_builder;
+using token_tree = token_tree_builder::tree_type;
 
 void print_tree(token_tree::node u, int d) {
   for (int i = 0; i < d; i++) std::cout << "  ";

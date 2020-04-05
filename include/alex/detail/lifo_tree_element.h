@@ -5,9 +5,9 @@ namespace detail {
 
 
 template<class ValueType>
-struct stack_tree_element {
+struct lifo_tree_element {
   ValueType value;
-  size_t neighbour_index;
+  size_t next_index;
 };
 
 
