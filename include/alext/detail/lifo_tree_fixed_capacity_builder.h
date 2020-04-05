@@ -23,20 +23,12 @@ public:
     , size_(0)
     , capacity_(capacity) {}
 
-  auto& get(marker_type index) {
-    return container_[index].value;
-  }
-
-  const auto& get(marker_type index) const {
-    return container_[index].value;
-  }
-
-  auto branch(value_type value) -> marker_type {
-    container_[size_].value = value;
+  auto branch() -> marker_type {
     return size_++;
   }
 
-  auto commit(marker_type index) {
+  auto commit(marker_type index, value_type value) {
+    container_[index].value = value;
     container_[index].next_index = size_;
   }
 

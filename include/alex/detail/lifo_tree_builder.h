@@ -18,20 +18,13 @@ public:
   using tree_type = lifo_tree<container_type>;
   using marker_type = size_t;
 
-  auto& get(marker_type index) {
-    return container_[index].value;
-  }
-
-  const auto& get(marker_type index) const {
-    return container_[index].value;
-  }
-
-  auto branch(value_type value) -> marker_type {
-    container_.emplace_back().value = value;
+  auto branch() -> marker_type {
+    container_.emplace_back();
     return container_.size() - 1;
   }
 
-  void commit(marker_type index) {
+  void commit(marker_type index, value_type value) {
+    container_[index].value = value;
     container_[index].next_index = container_.size();
   }
 

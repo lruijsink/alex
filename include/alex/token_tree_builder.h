@@ -26,17 +26,14 @@ public:
   template<class... ForwardArgsTS>
   token_tree_builder(ForwardArgsTS&&... args)
     : underlying_(std::forward<ForwardArgsTS>(args)...)
-    , root_marker_(
-      underlying_.branch(token_data_type(token_root<token_type>()))
-    ) {}
+    , root_marker_(underlying_.branch()) {}
 
-  auto branch(token_type token) -> marker_type {
-    return underlying_.branch(token_data_type(token));
+  auto branch() -> marker_type {
+    return underlying_.branch();
   }
 
-  auto commit(marker_type marker, std::string_view content) {
-    underlying_.commit(marker);
-    underlying_.get(marker).content() = content;
+  auto commit(marker_type marker, token_type token, std::string_view content) {
+    underlying_.commit(marker, token_data_type(token, content));
   }
 
   auto revert(marker_type marker) {
@@ -44,7 +41,7 @@ public:
   }
 
   auto finish() {
-    underlying_.commit(root_marker_);
+    underlying_.commit(root_marker_, token_data_type(token_root<token_type>(), ""));
     return std::move(underlying_.finish());
   }
 

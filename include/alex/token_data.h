@@ -11,8 +11,9 @@ public:
 
   token_data() {}
 
-  token_data(const token_type& token)
-    : token_(token) {}
+  token_data(const token_type& token, const content_type& content)
+    : token_(token)
+    , content_(content) {}
 
   const auto& token() const {
     return token_;
