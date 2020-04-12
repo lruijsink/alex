@@ -27,7 +27,7 @@ constexpr auto object_v
 = '{' + repeat_separated(ws + string_v + ws + ':' + expression, ',') + '}';
 
 constexpr parsing_result expression(parsing_iterator itr, parsing_context& context) {
-  return (ws + ( object_v | array_v | string_v | number_v | keyword_v) + ws) (itr, context);
+  return (ws + (object_v | array_v | string_v | number_v | keyword_v) + ws) (itr, context);
 }
 
 int main() {
