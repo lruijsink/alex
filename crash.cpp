@@ -1,8 +1,7 @@
 #include "alex.h"
 using namespace alex;
 
-constexpr parsing_result expression(parsing_iterator itr,
-                                    parsing_context& context);
+constexpr parsing_result expression(parsing_iterator itr, parsing_context& context);
 
 constexpr auto ws = repeat(choice(' ', '\t', '\r', '\n'));
 constexpr auto op = [] (auto l) { return ws + l + ws; };
@@ -27,19 +26,10 @@ constexpr auto array_v
 constexpr auto object_v
 = '{' + repeat_separated(ws + string_v + ws + ':' + expression, ',') + '}';
 
-constexpr parsing_result expression(parsing_iterator itr,
-                                    parsing_context& context) {
-  return
-  ( ws
-  + ( object_v
-    | array_v
-    | string_v
-    | number_v
-    | keyword_v
-    )
-  + ws )(itr, context);
+constexpr parsing_result expression(parsing_iterator itr, parsing_context& context) {
+  return (ws + ( object_v | array_v | string_v | number_v | keyword_v) + ws) (itr, context);
 }
 
 int main() {
-  constexpr auto lex = expression;
+  constexpr auto json = expression;
 }

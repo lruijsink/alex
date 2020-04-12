@@ -1,5 +1,5 @@
-# alex
+# LLVM crash report
 
-alex is a lex-er
+Little bit of context: I'm working on a functional parser for C++ using constexpr lambdas.
 
-Progress board: https://trello.com/b/zKQZAnMd/alex
+When composed a certain way, as shown in crash.cpp, the clang compiler on my machine crashes with an OOM error.

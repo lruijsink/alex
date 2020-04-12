@@ -13,4 +13,4 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googlebenchmark)
 
-add_executable(crash "crash.cpp")
+add_executable(crash "crash.cpp" )
