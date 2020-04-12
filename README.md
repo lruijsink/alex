@@ -1,5 +1,5 @@
 # alex
 
-a lex icographic parser
+alex is a lex-er
 
 Progress board: https://trello.com/b/zKQZAnMd/alex
