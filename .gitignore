@@ -3,8 +3,11 @@
 
 # CMake
 CMakeCache.txt
-CMakeFiles
+CMakeFiles/
 cmake_install.cmake
 
 # Make
 Makefile
+
+# Output files
+bin/
