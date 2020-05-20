@@ -1,4 +1,10 @@
-# Visual studio
-.vs/
-out/
-CMakeSettings.json
+# VSCode
+.vscode
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+
+# Make
+Makefile
