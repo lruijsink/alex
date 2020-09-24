@@ -2,3 +2,12 @@
 .vs/
 out/
 CMakeSettings.json
+
+# VS code
+.vscode/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
