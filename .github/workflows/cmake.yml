@@ -7,14 +7,6 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  formatting-check:
-    name: Formatting Check
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run clang-format style check for C programs.
-      uses: jidicula/clang-format-action@master
-
   build:
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
@@ -24,6 +16,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - uses: DoozyX/clang-format-lint-action@v0.10
+      with:
+        source: '.'
+        exclude: './third_party ./external'
+        extensions: 'h,c,hpp,cpp'
+        clangFormatVersion: 11
+        style: chromium
 
     - name: Install Catch2
       run: ./scripts/install_catch2.sh
