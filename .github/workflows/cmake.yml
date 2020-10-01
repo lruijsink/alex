@@ -22,20 +22,20 @@ jobs:
     
     - name: Build + test GCC Release
       shell: bash
-      working-directory: ${{runner.workspace}}/build
+      working-directory: ${{runner.workspace}}
       run: ./scripts/build.sh g++ Release
     
     - name: Build + test GCC Debug
       shell: bash
-      working-directory: ${{runner.workspace}}/build
+      working-directory: ${{runner.workspace}}
       run: ./scripts/build.sh g++ Debug
     
     - name: Build + test Clang Release
       shell: bash
-      working-directory: ${{runner.workspace}}/build
+      working-directory: ${{runner.workspace}}
       run: ./scripts/build.sh clang++ Release
     
     - name: Build + test GCC Debug
       shell: bash
-      working-directory: ${{runner.workspace}}/build
+      working-directory: ${{runner.workspace}}
       run: ./scripts/build.sh clang++ Debug
