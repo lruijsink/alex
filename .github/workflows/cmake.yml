@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C programs.
-      uses: jidicula/clang-format-action@maste
-      
+      uses: jidicula/clang-format-action@master
+
   build:
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
