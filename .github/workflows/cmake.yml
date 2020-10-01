@@ -16,14 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - uses: DoozyX/clang-format-lint-action@v0.10
-      with:
-        source: '.'
-        exclude: './third_party ./external'
-        extensions: 'h,c,hpp,cpp'
-        clangFormatVersion: 11
-        style: chromium
 
     - name: Install Catch2
       run: ./scripts/install_catch2.sh
