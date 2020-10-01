@@ -5,10 +5,6 @@
 
 namespace alex {
 
-template <class T>
-constexpr bool is_lex =
-    std::is_invocable_r_v<std::optional<lexing_context>, T, lexing_context &>;
-
 constexpr auto to_lex(char char_to_match) {
   return [=](lexing_context context) {
     return !context.data().empty() && context.data().front() == char_to_match
