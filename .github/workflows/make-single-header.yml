@@ -2,9 +2,6 @@ name: Make single header
 
 on: [push]
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   make-single-header:
     runs-on: ubuntu-latest
@@ -13,5 +10,5 @@ jobs:
     - uses: actions/setup-python@v1
     - name: Install Quom
       run: |
-      python3 -m pip install quom
-      quom include/alex/alex.hpp single_include/alex/alex.hpp
+        python3 -m pip install quom
+        quom include/alex/alex.hpp single_include/alex/alex.hpp
