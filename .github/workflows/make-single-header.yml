@@ -10,5 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
     - name: Install Quom
-      run: python3 -m pip install quom && quom include/alex/alex.hpp single_include/alex/alex.hpp
+      run: |
+      python3 -m pip install quom
+      quom include/alex/alex.hpp single_include/alex/alex.hpp
