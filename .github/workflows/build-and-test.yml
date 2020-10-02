@@ -2,44 +2,40 @@ name: Build + test
 
 on: [push]
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build-gcc-release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Catch2
-      run: ./scripts/install_catch2.sh
+      run: ./ci/install_catch2.sh
     - name: Build + test
       shell: bash
-      run: ./scripts/build.sh g++ Release $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh g++ Release
   build-gcc-debug:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Catch2
-      run: ./scripts/install_catch2.sh
+      run: ./ci/install_catch2.sh
     - name: Build + test
       shell: bash
-      run: ./scripts/build.sh g++ Debug $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh g++ Debug
   build-clang-release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Catch2
-      run: ./scripts/install_catch2.sh
+      run: ./ci/install_catch2.sh
     - name: Build + test
       shell: bash
-      run: ./scripts/build.sh clang++ Release $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh clang++ Release
   build-clang-debug:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Catch2
-      run: ./scripts/install_catch2.sh
+      run: ./ci/install_catch2.sh
     - name: Build + test
       shell: bash
-      run: ./scripts/build.sh clang++ Debug $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh clang++ Debug
