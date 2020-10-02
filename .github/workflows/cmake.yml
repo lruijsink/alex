@@ -21,13 +21,17 @@ jobs:
       run: ./scripts/install_catch2.sh
     
     - name: Build + test GCC Release
+      shell: bash
       run: ./scripts/build.sh g++ Release $GITHUB_WORKSPACE build
     
     - name: Build + test GCC Debug
+      shell: bash
       run: ./scripts/build.sh g++ Debug $GITHUB_WORKSPACE build
     
     - name: Build + test Clang Release
+      shell: bash
       run: ./scripts/build.sh clang++ Release $GITHUB_WORKSPACE build
     
     - name: Build + test GCC Debug
+      shell: bash
       run: ./scripts/build.sh clang++ Debug $GITHUB_WORKSPACE build
