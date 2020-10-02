@@ -1,7 +1,7 @@
 COMPILER=${1:-g++}
 TARGET=${2:-Release}
 PROJECT_ROOT=${3:-.}
-OUTPUT_DIR=$PROJECT_ROOT/${4:-build}
+OUTPUT_DIR=${4:-build}
 
 echo Compiling with $COMPILER
 echo Setting target to $TARGET
