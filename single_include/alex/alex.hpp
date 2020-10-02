@@ -26,7 +26,7 @@ namespace alex {
 
 template <class T>
 constexpr bool is_lex =
-    std::is_invocable_r_v<std::optional<lexing_context>, T, lexing_context &>;
+    std::is_invocable_r_v<std::optional<lexing_context>, T, lexing_context&>;
 
 }  // namespace alex
 
