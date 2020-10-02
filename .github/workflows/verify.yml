@@ -3,7 +3,7 @@ name: Verify branch
 on: [push]
 
 jobs:
-  verify-single-include:
+  verify:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

@@ -8,20 +8,21 @@ $MY_DIR/clang_format_all.sh
 BAD_CLANG_FORMAT=$(git ls-files --modified)
 
 if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
-  echo   "==================================================="
-  echo   "Verification failed, please add hook.sh to your"
-  echo   "pre-commit hooks to automatically generate correct"
-  echo   "single header include and format all on commit"
+  echo   "================================================================================"
+  echo   "Verification failed, please add hook.sh to .git/hooks/pre-commit or run"
+  echo   "clang-format and Quom manually before pushing changes"
 
   if [ $BAD_SINGLE_INCLUDE ]; then
+    echo ""
     echo "REASON: Single header include incorrectly generated"
   fi
   
   if [ $BAD_CLANG_FORMAT ]; then
-    echo "REASON: Files were not formatted properly"
+    echo ""
+    echo "REASON: Files were not formatted properly, clang-format check failed"
     echo $BAD_CLANG_FORMAT
   fi
   
-  echo   "==================================================="
+  echo   "================================================================================"
   exit 1
 fi
