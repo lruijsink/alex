@@ -4,7 +4,7 @@
 namespace alex {
 
 class lexing_context {
-public:
+ public:
   constexpr lexing_context(std::string_view data) : data_(data) {}
 
   constexpr auto data() const noexcept { return data_; }
@@ -12,8 +12,8 @@ public:
     return lexing_context(data_.substr(count));
   }
 
-private:
+ private:
   std::string_view data_;
 };
 
-} // namespace alex
+}  // namespace alex

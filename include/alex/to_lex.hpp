@@ -1,7 +1,7 @@
 #pragma once
-#include "lexing_context.hpp"
 #include <optional>
 #include <string_view>
+#include "lexing_context.hpp"
 
 namespace alex {
 
@@ -22,8 +22,8 @@ constexpr auto to_lex(std::string_view string_to_match) {
 }
 
 template <class T>
-constexpr auto to_lex(T lex, std::enable_if_t<is_lex<T>, void> * = nullptr) {
+constexpr auto to_lex(T lex, std::enable_if_t<is_lex<T>, void>* = nullptr) {
   return lex;
 }
 
-} // namespace alex
+}  // namespace alex
