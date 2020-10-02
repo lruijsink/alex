@@ -23,5 +23,11 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        event-type: single-header-updated
+        branch: ${GITHUB_REF##*/}
         github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Trigger build
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: lruijsink/alex
+        event-type: single-header-updated
