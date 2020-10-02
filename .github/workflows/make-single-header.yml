@@ -12,3 +12,12 @@ jobs:
       run: python3 -m pip install quom
     - name: Compile single header
       run: quom include/alex/alex.hpp single_include/alex/alex.hpp
+    - name: Commit change
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Automatic single header update" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
