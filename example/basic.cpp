@@ -1,6 +1,3 @@
 #include "alex/alex.hpp"
 
-  int main
-  () {
-     
-}
+int main() {}

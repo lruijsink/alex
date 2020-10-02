@@ -8,9 +8,9 @@ $MY_DIR/clang_format_all.sh
 BAD_CLANG_FORMAT=$(git ls-files --modified)
 
 if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
-  echo   "================================================================================"
+  echo   "==============================================================================="
   echo   "Verification failed, please add hook.sh to .git/hooks/pre-commit or run"
-  echo   "clang-format and Quom manually before pushing changes"
+  echo   "clang-format and Quom manually before pushing changes."
 
   if [ $BAD_SINGLE_INCLUDE ]; then
     echo ""
@@ -19,7 +19,7 @@ if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
   
   if [ $BAD_CLANG_FORMAT ]; then
     echo ""
-    echo "REASON: Files were not formatted properly, clang-format check failed"
+    echo "REASON: Files were not formatted properly, clang-format check failed for files:"
     echo $BAD_CLANG_FORMAT
   fi
   
