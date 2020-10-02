@@ -1,6 +1,8 @@
 name: Build + test
 
-on: [single-header-updated]
+on:
+  repository_dispatch:
+    types: [single-header-updated]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
