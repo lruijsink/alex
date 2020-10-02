@@ -28,6 +28,5 @@ jobs:
     - name: Trigger build
       uses: peter-evans/repository-dispatch@v1
       with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
-        repository: lruijsink/alex
+        token: ${{ secrets.GITHUB_TOKEN }}
         event-type: single-header-updated
