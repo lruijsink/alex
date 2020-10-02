@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(alex CXX)
+project(alex)
 
 enable_testing()
 
