@@ -21,17 +21,13 @@ jobs:
       run: ./scripts/install_catch2.sh
     
     - name: Build + test GCC Release
-      working-directory: ${{runner.workspace}}
-      run: ./scripts/build.sh g++ Release $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh g++ Release $GITHUB_WORKSPACE ${{runner.workspace}}/build
     
     - name: Build + test GCC Debug
-      working-directory: ${{runner.workspace}}/build
-      run: ./scripts/build.sh g++ Debug $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh g++ Debug $GITHUB_WORKSPACE ${{runner.workspace}}/build
     
     - name: Build + test Clang Release
-      working-directory: ${{runner.workspace}}/build
-      run: ./scripts/build.sh clang++ Release $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh clang++ Release $GITHUB_WORKSPACE ${{runner.workspace}}/build
     
     - name: Build + test GCC Debug
-      working-directory: ${{runner.workspace}}/build
-      run: ./scripts/build.sh clang++ Debug $GITHUB_WORKSPACE build
+      run: ./scripts/build.sh clang++ Debug $GITHUB_WORKSPACE ${{runner.workspace}}/build
