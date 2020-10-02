@@ -3,7 +3,6 @@ name: Make single header
 on: [push]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
 jobs:
@@ -12,7 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Quom
-      run: python3 -m pip install quom
-    - name: Run Quom
-      shell: bash
-      run: quom src/alex.hpp include/alex/alex.hpp
+      run: python3 -m pip install quom && quom include/alex/alex.hpp single_include/alex/alex.hpp
