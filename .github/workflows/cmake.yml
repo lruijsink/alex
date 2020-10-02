@@ -7,31 +7,39 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#configuring-a-build-matrix
+  build-gcc-release:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-
     - name: Install Catch2
       run: ./scripts/install_catch2.sh
-    
-    - name: Build + test GCC Release
+    - name: Build + test
       shell: bash
       run: ./scripts/build.sh g++ Release $GITHUB_WORKSPACE build
-    
-    - name: Build + test GCC Debug
+  build-gcc-debug:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Catch2
+      run: ./scripts/install_catch2.sh
+    - name: Build + test
       shell: bash
       run: ./scripts/build.sh g++ Debug $GITHUB_WORKSPACE build
-    
-    - name: Build + test Clang Release
+  build-clang-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Catch2
+      run: ./scripts/install_catch2.sh
+    - name: Build + test
       shell: bash
       run: ./scripts/build.sh clang++ Release $GITHUB_WORKSPACE build
-    
-    - name: Build + test GCC Debug
+  build-clang-debug:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Catch2
+      run: ./scripts/install_catch2.sh
+    - name: Build + test
       shell: bash
       run: ./scripts/build.sh clang++ Debug $GITHUB_WORKSPACE build
