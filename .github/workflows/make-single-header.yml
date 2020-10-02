@@ -20,4 +20,5 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
+        event-type: single-header-updated
         github_token: ${{ secrets.GITHUB_TOKEN }}
