@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
     - name: Install clang-format
       run: sudo apt-get install clang-format
     - name: Install Quom
