@@ -13,4 +13,4 @@ jobs:
       run: python3 -m pip install quom
     - name: Verify
       shell: bash
-      run: ./scripts/verify.sh
+      run: ./ci/verify.sh
