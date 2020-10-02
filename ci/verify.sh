@@ -9,7 +9,7 @@ BAD_CLANG_FORMAT=$(git ls-files --modified)
 
 if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
   echo   "==============================================================================="
-  echo   "Verification failed, please add hook.sh to .git/hooks/pre-commit or run"
+  echo   "Verification failed, please add script/hook.sh to .git/hooks/pre-commit or run"
   echo   "clang-format and Quom manually before pushing changes."
 
   if [ $BAD_SINGLE_INCLUDE ]; then
