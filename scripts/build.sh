@@ -14,4 +14,6 @@ cd $OUTPUT_DIR
 cmake -DCMAKE_BUILD_TYPE=$TARGET -DCMAKE_CXX_COMPILER=$COMPILER ..
 cmake --build . --config $TARGET
 ctest -C $BUILD_TYPE
+CTEST_RESULT=$?
 cd ..
+exit $CTEST_RESULT
