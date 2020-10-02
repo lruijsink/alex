@@ -2,14 +2,13 @@ name: Build + test
 
 on: [push]
 
-strategy:
-  matrix:
-    compiler: [g++, clang++]
-    target: [Release, Debug]
-
 jobs:
   build-gcc-release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+        target: [Release, Debug]
     steps:
     - uses: actions/checkout@v2
     - name: Install Catch2
