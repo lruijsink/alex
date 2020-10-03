@@ -18,13 +18,13 @@ if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
     echo ""
     echo "REASON: Single header include incorrectly generated"
   fi
-  
+
   if [ $BAD_CLANG_FORMAT ]; then
     echo ""
     echo "REASON: Files were not formatted properly, clang-format check failed for files:"
     echo $BAD_CLANG_FORMAT
   fi
-  
+
   echo   "================================================================================"
   exit 1
 fi
