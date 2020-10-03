@@ -5,13 +5,18 @@ on: [push]
 jobs:
   verify:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
+    
     - uses: actions/setup-python@v1
+    
     - name: Install clang-format
       run: sudo apt-get install clang-format
+    
     - name: Install Quom
       run: python3 -m pip install quom
+
     - name: Verify
       shell: bash
       run: ./ci/verify.sh

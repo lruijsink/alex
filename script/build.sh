@@ -1,14 +1,14 @@
-SCRIPTS_DIR=$(dirname "$0")
-PROJECT_DIR=$SCRIPTS_DIR/..
+SCRIPT_DIR=$(dirname "$0")
+ROOT_DIR=$SCRIPT_DIR/..
+BUILD_DIR=$ROOT_DIR/build
 
 COMPILER=${1:-g++}
 TARGET=${2:-Release}
+echo Setting COMPILER = $COMPILER
+echo Setting TARGET = $TARGET
 
-echo Setting compiler = $COMPILER
-echo Setting target = $TARGET
-
-mkdir -p $PROJECT_DIR/build
-pushd $PROJECT_DIR/build
+mkdir -p $BUILD_DIR
+pushd $BUILD_DIR
 
 cmake -DCMAKE_BUILD_TYPE=$TARGET -DCMAKE_CXX_COMPILER=$COMPILER ..
 cmake --build . --config $TARGET

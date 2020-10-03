@@ -1,16 +1,18 @@
-set +x
-MY_DIR=$(dirname "$0")
+CI_DIR=$(dirname "$0")
+ROOT_DIR=$CI_DIR/..
+SCRIPT_DIR=$ROOT_DIR/script
 
-$MY_DIR/make_single_include.sh
+set +x
+
+$SCRIPT_DIR/generate-single-include.sh
 BAD_SINGLE_INCLUDE=$(git ls-files --modified)
 
-$MY_DIR/clang_format_all.sh
+$CI_DIR/format-all.sh
 BAD_CLANG_FORMAT=$(git ls-files --modified)
 
 if [ $BAD_SINGLE_INCLUDE ] || [ $BAD_CLANG_FORMAT ]; then
   echo   "==============================================================================="
-  echo   "Verification failed, please add script/hook.sh to .git/hooks/pre-commit or run"
-  echo   "clang-format and Quom manually before pushing changes."
+  echo   "Verification failed, please run Quom and clang-format before pushing changes."
 
   if [ $BAD_SINGLE_INCLUDE ]; then
     echo ""
