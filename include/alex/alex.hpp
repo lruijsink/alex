@@ -1,5 +1,3 @@
 #pragma once
 
-constexpr
-  auto
-    test = 0;
+constexpr auto test = 0;

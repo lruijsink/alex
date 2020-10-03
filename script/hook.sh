@@ -11,3 +11,5 @@ git add $PROJECT_DIR/single_include/alex/alex.hpp
 # Run clang-format on changes
 git diff --name-only --cached | grep '\.\(c\|h\|cpp\|hpp\)$' \
                               | xargs clang-format -i
+
+git diff --name-only --cached | xargs git add
